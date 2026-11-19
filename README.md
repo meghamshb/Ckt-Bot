@@ -1,157 +1,103 @@
-# DO NOT DISTRIBUTE — INTELLECTUAL PROPERTY OF HKU ECE
+> **DO NOT DISTRIBUTE — INTELLECTUAL PROPERTY OF HKU ECE**
 
-<h1 align="center">⚡ KBOT</h1>
-<p align="center">READ THE CIRCUIT. INSPECT THE CONNECTIONS. CHECK THE ANSWER.</p>
+<h1 align="center">⚡ K-Bot</h1>
+<p align="center">Circuit diagrams to connections, equations and worked answers.</p>
+<p align="center"><a href="run.md">Get started</a> · <a href="#pipeline">Explore the pipeline</a> · <a href="#example">Worked example</a> · <a href="EXCLUSIONS.md">Model files</a></p>
 
-<p align="center"><a href="run.md">🚀 RUN THE DEMO</a> · <a href="#the-workflow">🧭 THE WORKFLOW</a> · <a href="#from-the-question-to-the-answer">🧮 ANSWERS</a> · <a href="EXCLUSIONS.md">📦 MODEL FILES</a> · <a href="LICENSE">🔒 RESTRICTIONS</a></p>
+K-Bot reads a circuit image and answers a question about it. The workflow combines component detection, wire tracing, contextual reading and electrical calculation. Its local web interface shows the intermediate outputs, so you can inspect the circuit that was extracted before accepting the answer.
 
-**CONFIDENTIAL · AUTHORIZED INTERNAL RESEARCH USE ONLY · PRIVATE SOURCE FREEZE**
+## 🔎 A circuit, step by step
 
-KBOT TAKES A CIRCUIT IMAGE AND A QUESTION, RECOVERS COMPONENTS AND CONNECTIONS, AND CALCULATES THE REQUESTED ELECTRICAL QUANTITY. THE WEB INTERFACE EXPOSES THE DETECTIONS, SEGMENTATION, GRAPH, READINGS AND WORKED ANSWER SO EACH STAGE CAN BE INSPECTED.
+The images below come from one saved K-Bot development run on Sadiku Figure 10.52. They show the actual outputs, rather than illustrations of what the pipeline should produce.
 
-<a name="the-workflow"></a>
+<table>
+<tr><th width="50%">Circuit image</th><th width="50%">Component detections</th></tr>
+<tr><td><img src="docs/images/ac-source.png" alt="Input AC circuit"></td><td><img src="docs/images/ac-detections.png" alt="K-Bot YOLO component detections"></td></tr>
+</table>
 
-## 🧭 THE WORKFLOW
+<a name="pipeline"></a>
 
-```mermaid
-flowchart LR
-    A[IMAGE + QUESTION] --> B[YOLO COMPONENTS]
-    A --> C[SAM MASK]
-    B --> D[PINS + NETS]
-    C --> D
-    A --> E[VISUAL READING]
-    D --> E
-    E --> F[FINAL CIRCUIT]
-    F --> G[REQUESTED MEASUREMENT]
-    G --> H[EXACT CALCULATION]
-    H --> I[SPICE CROSS-CHECK]
-    I --> J[ANSWER + WORKED EXPLANATION]
-```
+### ① Find the components
 
-### 🔍 1. FIND THE COMPONENTS
+**YOLO26n** locates resistors, sources, capacitors, inductors and other supported symbols. The boxes identify component types and positions; the wiring determines how those components interact.
 
-YOLO26N LOCATES THE SYMBOLS AND ASSIGNS COMPONENT CLASSES. BOXES IDENTIFY WHAT IS PRESENT AND WHERE; THE CONNECTIONS ARE RECOVERED SEPARATELY.
+### ② Trace the wires
 
-<p align="center"><img src="docs/images/ac-detections.png" width="850" alt="ACTUAL KBOT COMPONENT DETECTIONS"></p>
+**SAM2.1 and graph preprocessing** provide the wire evidence. Component bodies are excluded from the segmented strokes, leaving the processed wire mask used for connection tracing.
 
-### 🧵 2. TRACE THE WIRES
+<p align="center"><img src="docs/images/ac-wire-mask.png" width="850" alt="Actual processed wire mask used for connection tracing"></p>
+<p align="center"><sub>White pixels are retained wire strokes. Gaps at removed component bodies are expected.</sub></p>
 
-THE GRAPH BUILDER PROCESSES THE SEGMENTED CIRCUIT STROKES AND EXCLUDES COMPONENT BODIES TO ISOLATE THE WIRING. THIS SAVED WIRE MASK IS THE INPUT TO CONNECTION TRACING:
+The assembler follows these segments and associates component terminals with them. It still needs to distinguish genuine junctions, unconnected crossings and unintended gaps.
 
-<p align="center"><img src="docs/images/ac-wire-mask.png" width="850" alt="ACTUAL PROCESSED WIRE MASK USED FOR CONNECTION TRACING"></p>
-<p align="center"><em>WHITE PIXELS SHOW THE RETAINED WIRE STROKES. BLACK PIXELS ARE BACKGROUND OR EXCLUDED REGIONS.</em></p>
+### ③ Turn the wiring into a circuit graph
 
-THE ASSEMBLER FOLLOWS CONNECTED WIRE SEGMENTS AND ASSOCIATES COMPONENT TERMINALS WITH THEM. TERMINALS THAT SHARE A CONNECTED WIRE NETWORK RECEIVE THE SAME NET ID.
+The **Python graph assembler** records components, their terminals and their connected nets. A net is one connected wire network, treated as an electrical node. Labels such as `n1` identify nets; they do not automatically designate ground.
 
-**WIRE SEGMENTS → COMPONENT TERMINALS → CONNECTED NETS → CIRCUIT GRAPH**
+<p align="center"><img src="docs/images/ac-final-graph.png" width="850" alt="Final K-Bot circuit graph showing components, pins and nets"></p>
 
-GAPS WHERE COMPONENT BODIES WERE REMOVED ARE EXPECTED: THE COMPONENT CONNECTS ITS TERMINALS THROUGH ITS ELECTRICAL MODEL. UNINTENDED GAPS AND AMBIGUOUS CROSSINGS STILL NEED CHECKING. THE MASK ABOVE IS AN UNMODIFIED OUTPUT FROM THE SAME SAVED RUN AS THE DETECTIONS AND GRAPH.
+This representation determines the equations. Parallel components share the same two nets. A requested current needs a branch and direction; a requested voltage needs positive and negative terminals.
 
-### 🔗 3. BUILD THE ELECTRICAL CONNECTIONS
+### ④ Read, calculate and explain
 
-THE PYTHON GRAPH ASSEMBLER ASSOCIATES COMPONENT TERMINALS WITH NETS. A NET IS A CONNECTED WIRE NETWORK; EACH NET REPRESENTS AN ELECTRICAL NODE UNDER THE IDEAL-WIRE ASSUMPTION. LABELS SUCH AS `n1` AND `n2` ARE IDENTIFIERS, NOT VALUES OR AUTOMATIC GROUND DESIGNATIONS.
+- **Visual reading** associates values, units, polarity and pin roles with the circuit.
+- **Question interpretation** binds the requested measurement to the graph.
+- **SymPy** solves the linear circuit equations.
+- **ngspice** provides a numerical cross-check on the extracted circuit.
+- **The explanation stage** presents the recorded calculation as a worked solution.
 
-THE GRAPH RECORDS WHICH TERMINALS SHARE A NET. PARALLEL BRANCHES SHARE THE SAME TWO NETS. A SERIES RELATIONSHIP REQUIRES CHECKING OTHER CONNECTIONS AT THE SHARED NODE. GROUNDS, SOURCE DIRECTIONS AND OP-AMP PIN ROLES ALSO AFFECT THE ELECTRICAL MODEL.
+The interface exposes the readings, connections, calculation and answer. Intermediate records remain available for diagnosis.
 
-<p align="center"><img src="docs/images/ac-final-graph.png" width="850" alt="ACTUAL FINAL CIRCUIT GRAPH OVERLAY"></p>
+<a name="example"></a>
 
-### 👁️ 4. READ VALUES, UNITS AND REFERENCES
+## 🧮 From the graph to an answer
 
-THE VISION-LANGUAGE STAGE INTERPRETS COMPONENT VALUES, UNITS, POLARITY, PHYSICAL PIN ROLES AND PRINTED MEASUREMENT REFERENCES USING THE ORIGINAL IMAGE AND COMPONENT CONTEXT. A CORRECTLY READ NUMBER MUST ALSO BELONG TO THE CORRECT COMPONENT.
+**Question:** Find $v_o(t)$ in sinusoidal steady state, using the marked polarity across the $1\,\Omega$ resistor.
 
-READINGS AND CONNECTIONS ARE STORED AS STRUCTURED RECORDS. INVALID OR INCOMPLETE EVIDENCE CAN STOP THE RUN; VALID JSON BY ITSELF DOES NOT PROVE A CORRECT CIRCUIT.
+The extracted reference places the positive terminal on `n1` and the negative terminal on `n3`, so $V_o=V(n1)-V(n3)$.
 
-<a name="from-the-question-to-the-answer"></a>
-
-## 🧮 FROM THE QUESTION TO THE ANSWER
-
-THE QUESTION SELECTS A PHYSICAL MEASUREMENT, NOT JUST A TEXT LABEL. A REQUEST SUCH AS “FIND THE INDUCTOR CURRENT” NEEDS A SPECIFIC BRANCH AND POSITIVE DIRECTION. A VOLTAGE REQUEST NEEDS ITS POSITIVE AND NEGATIVE TERMINALS. THESE TARGETS MUST BE BOUND TO THE EXTRACTED GRAPH BEFORE CALCULATION.
-
-FOR THE SAVED EXAMPLE BELOW, THE PRINTED OUTPUT REFERENCE IS BOUND AS FOLLOWS:
-
-| REQUEST | POSITIVE NET | NEGATIVE NET | CALCULATED QUANTITY |
-| --- | --- | --- | --- |
-| $V_o$ | `n1` | `n3` | $V(n1)-V(n3)$ |
-
-THIS BINDING IS TAKEN FROM THE ACTUAL SAVED CIRCUIT RECORD. AN INDUCTOR-CURRENT REQUEST SIMILARLY NEEDS THE INDUCTOR'S BRANCH AND SIGNED DIRECTION; A COMPONENT CLASS ALONE DOES NOT IDENTIFY THE REQUESTED CURRENT.
-
-SYMPY BUILDS AND SOLVES THE LINEAR EQUATIONS. NGSPICE ANALYSES THE EXTRACTED NETLIST AS A NUMERICAL CROSS-CHECK. THE EXPLANATION STAGE USES THE RECORDED CALCULATION TO PRESENT THE WORKED SOLUTION.
-
-### 🌊 A SAVED AC EXAMPLE
-
-**QUESTION:** FIND THE MARKED OUTPUT VOLTAGE IN SINUSOIDAL STEADY STATE.
-
-AT $\omega=4\ \mathrm{rad/s}$, THE CAPACITOR HAS $Z_C=-j3\ \Omega$ AND THE INDUCTOR HAS $Z_L=j8\ \Omega$. THE VOLTAGE SOURCE IS $-j16\ \mathrm{V}$ USING A PEAK COSINE REFERENCE. KCL AT THE OUTPUT NODE GIVES:
+At $\omega=4\,\mathrm{rad/s}$, the capacitor impedance is $-j3\,\Omega$ and the inductor impedance is $j8\,\Omega$. Using peak cosine-reference phasors, KCL gives:
 
 $$\frac{V_o+j16}{4-j3}+\frac{V_o}{1}+\frac{V_o}{6+j8}=2.$$
 
-THE SAVED RUN RETURNS:
+The saved result is:
 
-$$V_o=3.14094-j2.20134=3.83555\angle-35.0249^\circ\ \mathrm{V}.$$
+$$\boxed{v_o(t)=3.83555\cos(4t-35.0249^\circ)\ \mathrm{V}}.$$
 
-$$v_o(t)=3.83555\cos(4t-35.0249^\circ)\ \mathrm{V}.$$
+It agrees with the separate nodal calculation and passed the SPICE cross-check.
 
-THE RESULT MATCHES THE SEPARATE NODAL CALCULATION AND PASSED THE SPICE CROSS-CHECK. THE IMAGES ABOVE ARE SAVED KBOT OUTPUTS FOR SADIKU FIGURE 10.52, NOT A LIVE RUN OR AN UNSEEN BENCHMARK. [IMAGE PROVENANCE](docs/images/PROVENANCE.json).
+<details>
+<summary><strong>What about the inductor current?</strong></summary>
 
-### ➡️ READING AN INDUCTOR CURRENT FROM THE GRAPH
-
-IN THE SAME SAVED CIRCUIT, THE $2\,\mathrm{H}$ INDUCTOR IS COMPONENT `c2`: ITS LEFT TERMINAL `p3` IS ON `n1` AND ITS RIGHT TERMINAL `p4` IS ON `n2`. DEFINING $I_L$ FROM LEFT TO RIGHT GIVES:
+The graph identifies the $2\,\mathrm{H}$ inductor as `c2`, with terminal `p3` on `n1` and terminal `p4` on `n2`. Defining $I_L$ from left to right:
 
 $$I_L=\frac{V(n1)-V(n2)}{j8}=\frac{V_o}{6+j8}=\frac{46-j1428}{3725}\ \mathrm{A}.$$
 
-THIS VALUE IS ALREADY PRESENT IN THE SAVED LINEAR STATE AS THE INDUCTOR TERMINAL CURRENT. IT ALSO MATCHES THE SEPARATE BRANCH-CURRENT CALCULATION. THIS ILLUSTRATES HOW CONNECTIONS AND DIRECTION DEFINE A CURRENT; IT IS NOT A SEPARATE NEW IMAGE-TO-ANSWER TEST.
+That current is present in the same saved linear state and agrees with a separate branch-current calculation. It is a readout of that saved state, rather than a separate image-to-answer evaluation.
 
-## 🖥️ THE WEB INTERFACE
+</details>
 
-- UPLOAD A CIRCUIT IMAGE AND ENTER ITS QUESTION.
-- FOLLOW DETECTIONS, THE SAM MASK, PINS AND NETS, AND THE FINAL GRAPH AS THE RUN PROGRESSES.
-- INSPECT THE READINGS, CALCULATED QUANTITIES AND LATEX-RENDERED WORKED SOLUTION.
-- REOPEN PREVIOUS RUNS FOR DIAGNOSIS; IDENTIFY SAVED OUTPUTS AS BACKUPS DURING A DEMONSTRATION.
+## 🚀 Run K-Bot
 
-THE NUMERICAL ANSWER AND EXPLANATION HAVE SEPARATE STATUS. A CHECKED ANSWER CAN BE DISPLAYED WHILE THE EXPLANATION FINISHES. RUN ARTIFACTS ARE SAVED LOCALLY AND ARE NOT CHECKED INTO SOURCE CONTROL.
+Follow **[run.md](run.md)** for installation, model-file checks, login and startup. The guide explains each command and how to resolve missing prerequisites.
 
-## 🛠️ TECHNOLOGY
-
-| PART | CURRENT ROLE |
+| Route | Status |
 | --- | --- |
-| YOLO26N | LOCAL COMPONENT DETECTION |
-| SAM2.1 | LOCAL FOREGROUND SEGMENTATION |
-| PYTHON GRAPH ASSEMBLER | TERMINALS, NETS AND MEASUREMENT REFERENCES |
-| HOSTED VISION/LANGUAGE BACKEND | CONTEXTUAL READING, QUESTION INTERPRETATION AND EXPLANATION |
-| SYMPY | EXACT LINEAR CALCULATION |
-| NGSPICE | NUMERICAL CROSS-CHECK |
-| PYTHON + HTML/CSS/JAVASCRIPT + KATEX | LOCAL WEB INTERFACE |
+| Native Mac | Configuration, readiness and Web UI startup checked using the existing local dependencies. A clean-machine installation remains unverified. |
+| Docker | Experimental Linux CPU packaging. The image has not been built or validated end to end. |
 
-## 🚀 SETUP AND USAGE
+The web interface runs at **`http://127.0.0.1:8766/`**. Upload an image, enter the question and run the analysis. Model weights and authentication are supplied separately; see [EXCLUSIONS.md](EXCLUSIONS.md).
 
-START WITH THE [STEP-BY-STEP RUN GUIDE](run.md). IT EXPLAINS WHAT TO INSTALL, WHICH PRIVATE MODEL FILES TO OBTAIN, HOW TO CONFIGURE THE ENVIRONMENT AND HOW TO OPEN THE DEMO.
+## 🧪 Research status
 
-**A CLONE ALONE IS NOT ENOUGH.** WEIGHTS AND AUTHENTICATION ARE PROVIDED SEPARATELY. THE ORIGINAL MAC CONFIGURATION AND THE OPTIONAL DOCKER ROUTE HAVE DIFFERENT ENVIRONMENT REQUIREMENTS; SEE THE GUIDE FOR WHAT HAS ACTUALLY BEEN CHECKED.
+The calculation layer supports linear DC and AC steady state, including dependent sources and explicitly ideal linear op-amps. Image extraction remains the main limitation: faint wires, crossings, terminal placement and value/reference binding can change the recovered circuit.
 
-THE DEFAULT LOCAL ADDRESS IS `http://127.0.0.1:8766/`.
+**Solver agreement checks the extracted circuit; it does not prove that the image was interpreted correctly.** This saved example demonstrates the workflow, not overall accuracy or unseen-circuit coverage.
 
-## 🧪 RESEARCH STATUS
+The original pipeline and Web UI are preserved at **`FREEZE-2026-11-19`**. Documentation and setup helpers are maintained on `main`. [Image provenance](docs/images/PROVENANCE.json) · [Measurement provenance](docs/images/MEASUREMENT_PROVENANCE.json).
 
-THIS IS A FROZEN RESEARCH DEMONSTRATION, WITH SOURCE SNAPSHOT TAG `FREEZE-2026-11-19`. THE TAG PRESERVES THE ORIGINAL FREEZE; DOCUMENTATION AND REPRODUCTION HELPERS CAN ADVANCE ON THE MAIN BRANCH.
+## 🔒 Access and ownership
 
-SUPPORTED CALCULATION SCOPE IS LINEAR DC AND AC STEADY STATE, INCLUDING DEPENDENT SOURCES AND EXPLICITLY IDEAL LINEAR OP-AMPS. THIS DOES NOT ESTABLISH BROAD IMAGE-READING COVERAGE OR NONLINEAR/TRANSIENT SUPPORT.
+This is a private research repository. Project-owned material must not be distributed or published without authorization. Third-party software and example diagrams retain their respective rights. The HKU ECE attribution is the project owner's designated notice; actual ownership depends on applicable law, HKU policy and relevant agreements. See [LICENSE](LICENSE).
 
-WIRE DISCONTINUITIES, CROSSINGS, EXTRA TERMINALS, WRONG VALUE OWNERSHIP AND AMBIGUOUS REFERENCE DIRECTIONS REMAIN IMPORTANT FAILURE MODES. SOLVER AGREEMENT CHECKS THE EXTRACTED CIRCUIT; IT DOES NOT PROVE THAT CIRCUIT MATCHES THE IMAGE. NO OVERALL ACCURACY IS CLAIMED FROM PREPARED EXAMPLES.
-
-## 📦 FILES AND MODEL ACCESS
-
-THE SOURCE INCLUDES THE PIPELINE, GRAPH ASSEMBLER, WEB UI, LAUNCH SCRIPTS, CONFIGURATION AND CHECKSUM RECORDS. [EXCLUSIONS.md](EXCLUSIONS.md) LISTS THE WEIGHT IDENTITIES AND EXTERNAL DEPENDENCIES.
-
-YOLO WEIGHTS, SAM BASE/FINE-TUNED WEIGHTS, TRAINING DATA, PRIVATE ANSWERS, SEALED TESTS, USER RUNS, LOCAL ENVIRONMENTS AND CREDENTIALS REMAIN OUTSIDE NORMAL GIT HISTORY. ONLY THE EXPLICITLY SELECTED DOCUMENTATION IMAGES ARE INCLUDED HERE.
-
-## 🔒 COPYRIGHT AND ACCESS
-
-DO NOT DISTRIBUTE, PUBLISH OR SUBLICENSE PROJECT-OWNED MATERIAL WITHOUT WRITTEN AUTHORIZATION FROM THE RELEVANT RIGHTS HOLDER. NO PUBLIC OR OPEN-SOURCE LICENSE IS GRANTED FOR PROJECT-OWNED MATERIAL. SEE [LICENSE](LICENSE).
-
-THE HKU ECE ATTRIBUTION IS THE PROJECT OWNER'S DESIGNATED NOTICE. ACTUAL OWNERSHIP IS GOVERNED BY APPLICABLE LAW, HKU POLICY AND RELEVANT AGREEMENTS. THIRD-PARTY COMPONENTS AND EXAMPLE DIAGRAMS RETAIN THEIR OWN RIGHTS; THEIR NOTICES AND LICENCE TERMS ARE NOT OVERRIDDEN.
-
-- [HONG KONG COPYRIGHT ORDINANCE, CAP. 528](https://www.elegislation.gov.hk/hk/cap528)
-- [INTELLECTUAL PROPERTY DEPARTMENT — COPYRIGHT AND OWNERSHIP](https://www.ipd.gov.hk/en/copyright/what-is-copyright/index.html)
-- [HKU INTELLECTUAL PROPERTY RIGHTS POLICY](https://www.rss.hku.hk/contracts/ipr)
-
-THIS README USES CAPITAL LETTERS AS REQUESTED. SETUP GUIDES USE NORMAL SENTENCE CASE. COMMANDS, PATHS, IDENTIFIERS, URL TARGETS AND ORIGINAL THIRD-PARTY NOTICES RETAIN THEIR REQUIRED CASE.
+[Hong Kong Copyright Ordinance, Cap. 528](https://www.elegislation.gov.hk/hk/cap528) · [Copyright guidance](https://www.ipd.gov.hk/en/copyright/what-is-copyright/index.html) · [HKU intellectual property policy](https://www.rss.hku.hk/contracts/ipr)
