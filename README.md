@@ -1,4 +1,4 @@
-> **DO NOT DISTRIBUTE — INTELLECTUAL PROPERTY OF HKU ECE**
+> **DO NOT DISTRIBUTE: INTELLECTUAL PROPERTY OF HKU ECE**
 
 <h1 align="center">K-Bot</h1>
 <p align="center">Upload a circuit. Ask a question. See the working.</p>
@@ -42,7 +42,7 @@ The **vision-language model** reads values and labels and interprets the questio
 
 Follow **[run.md](run.md)** to install the software, download the models, sign in and start the web interface. Each teammate needs their own hosted-model login and access.
 
-The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/KBOT-models). See [EXCLUSIONS.md](EXCLUSIONS.md) for files kept outside GitHub. Docker remains experimental and unverified.
+The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/KBOT-models). See [run.md](run.md#what-is-included) for files kept outside GitHub. Docker remains experimental and unverified.
 
 ## Current status
 

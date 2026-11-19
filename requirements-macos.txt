@@ -1,10 +1,8 @@
-# OBSERVED ORIGINAL MAC ENVIRONMENT; NOT A VERIFIED PUBLIC-INDEX INSTALL LOCK.
-# EXACT PACKAGE VERSIONS; PRIVATE ARTIFACTS AND PLATFORM REQUIREMENTS STILL APPLY.
+# Pinned packages for the verified Apple Silicon setup.
 accelerate==1.6.0
 antlr4-python3-runtime==4.9.3
 anyio==4.16.0
 attrs==26.1.0
-beautifulsoup4==4.15.0
 certifi==2026.10.23
 charset-normalizer==3.5.2
 contourpy==1.4.0
@@ -12,7 +10,6 @@ cycler==0.12.1
 filelock==4.2.10
 fonttools==4.68.0
 fsspec==2026.9.0
-gdown==5.2.0
 h11==0.16.0
 httpcore==1.0.9
 httpx==0.28.1
@@ -41,7 +38,6 @@ polars-runtime-32==2.1.0
 portalocker==4.4.2
 psutil==7.2.2
 pyparsing==3.3.3
-PySocks==1.7.1
 python-dateutil==4.0.0
 PyYAML==6.0.3
 referencing==0.37.0
@@ -50,7 +46,6 @@ requests==2.34.2
 rpds-py==2026.9.1
 safetensors==0.5.3
 setuptools==84.2.1
-soupsieve==4.1
 sympy==1.14.0
 tokenizers==0.21.1
 torch==2.15.0

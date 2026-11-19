@@ -160,5 +160,25 @@
     "Host software was preinstalled; no clean operating system or Docker validation.",
     "Teammates require their own source access, login and configured hosted-model access."
   ],
-  "credentials_included": false
+  "credentials_included": false,
+  "dependency_cleanup_validation": {
+    "new_environment": true,
+    "pip_check": "passed",
+    "removed_packages_absent": [
+      "gdown",
+      "beautifulsoup4",
+      "soupsieve",
+      "PySocks"
+    ],
+    "runtime_readiness": "passed",
+    "pipeline_source_changed": false,
+    "requirements_sha256": "e22fa6d56faf957c01f407093b3890505cd453d4de3e550863066df7d8519d9b",
+    "known_circuit_run_status": "completed",
+    "known_circuit_answer_status": "answered",
+    "independent_answer_absolute_error": 0.0,
+    "spice_crosscheck": "passed",
+    "worked_explanation": "available",
+    "seconds": 87.09729408300154,
+    "scope": "One known circuit for dependency retention; not an accuracy benchmark."
+  }
 }

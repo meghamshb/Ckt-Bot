@@ -1,5 +1,5 @@
 {
-  "notice": "SAVED DEVELOPMENT OUTPUTS FROM A SADIKU FIGURE 10.52 INPUT. NOT AN UNSEEN BENCHMARK. THIRD-PARTY DIAGRAM RIGHTS ARE NOT CLAIMED BY THIS PROJECT. INCLUDED IN THE PRIVATE REPOSITORY AT THE OWNER REQUEST.",
+  "notice": "Saved development outputs from Sadiku Figure 10.52, included for the private project walkthrough. These are known examples. This project does not claim rights to the original diagram.",
   "images": [
     {
       "file": "ac-source.png",
@@ -12,12 +12,6 @@
       "source_run": "20261118-154428-41302e5d",
       "source_artifact": "detections-overlay.png",
       "sha256": "0ac98115dec86e2735c1e575e5517d87cf030e79e70a1f092a7945c74b0703f1"
-    },
-    {
-      "file": "ac-sam-mask.png",
-      "source_run": "20261118-154428-41302e5d",
-      "source_artifact": "sam/mask.png",
-      "sha256": "389254c225be20b94e8b04e13c981ec1e5077a86958fdeb9108eb104cc9122df"
     },
     {
       "file": "ac-final-graph.png",
