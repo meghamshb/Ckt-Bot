@@ -1,42 +1,42 @@
-# EXCLUDED ARTIFACTS AND RUNTIME DEPENDENCIES
+# Excluded artifacts and runtime dependencies
 
-THIS IS A SOURCE FREEZE, NOT A SELF-CONTAINED MODEL OR DATA RELEASE. THE ACTIVE DEMO IS UNCHANGED.
+This is a source freeze, not a self-contained model or data release. The active demo is unchanged.
 
-## MODEL WEIGHTS NOT COMMITTED
+## Model weights not committed
 
-| ARTIFACT PATH (EXACT CASE REQUIRED) | BYTES | SHA-256 |
+| Artifact path (exact case required) | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `runtime/models/yolo26n-final50.pt` | 21344349 | `3d05f8ede9c8aa25ab19261fad7df60a1a5fbd61dcd00f8312ee88122c254005` |
 | `/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-artifacts-20261113/sam2.1_hiera_large.pt` | 898083611 | `2647878d5dfa5098f2f8649825738a9345572bae2d4350a2468587ece47dd318` |
 | `/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-artifacts-20261113/circuitvision_finetuned.pth` | 900710020 | `ff219e3ea853bcd23fef7d22642c3c6341237e2a2a3f11c1f3898c8f48becd01` |
 
-## OTHER MATERIAL NOT COMMITTED
+## Other material not committed
 
-- TRAINING DATASETS, LABELS, BULK TEXTBOOK FIGURES/QUESTIONS, PRIVATE REFERENCE ANSWERS, SEALED FINAL DATA AND COPYRIGHTED COURSE NOTES. FOUR OWNER-REQUESTED DOCUMENTATION IMAGES FROM ONE SAVED DEVELOPMENT RUN ARE INCLUDED UNDER `docs/images/`; SEE THEIR PROVENANCE RECORD.
-- LIVE RUNS, SAVED DEMO OUTPUTS, SERVER LOGS, READINESS RECORDS, REHEARSAL OUTPUTS AND SCREENSHOTS.
-- API KEYS, CLI LOGIN TOKENS, AUTHENTICATION FILES, PRIVATE ENVIRONMENT FILES AND USER HOME CONFIGURATION.
-- LOCAL PYTHON ENVIRONMENTS, INSTALLED PACKAGES, MODEL CACHES, OLD CANDIDATES AND TRAINING CHECKPOINTS.
-- THE THREE PREPARED TEXTBOOK IMAGES AND THEIR QUESTION MANIFEST. THE NEW PACKAGE USES AN EMPTY CASE MANIFEST; UPLOADS REMAIN THE INPUT ROUTE.
-- LOCAL QWEN WEIGHTS: CURRENT VISION AND REASONING USE THE CONFIGURED HOSTED CLI PROVIDER, NOT LOCAL QWEN.
+- Training datasets, labels, bulk textbook figures/questions, private reference answers, sealed final data and copyrighted course notes. Selected owner-requested documentation images from one saved development run are included under `docs/images/`; see their provenance record.
+- Live runs, saved demo outputs, server logs, readiness records, rehearsal outputs and screenshots.
+- API keys, CLI login tokens, authentication files, private environment files and user home configuration.
+- Local Python environments, installed packages, model caches, old candidates and training checkpoints.
+- The three prepared textbook images and their question manifest. The new package uses an empty case manifest; uploads remain the input route.
+- Local Qwen weights: current vision and reasoning use the configured hosted CLI provider, not local Qwen.
 
-## REQUIRED EXTERNAL INSTALLATIONS
+## Required external installations
 
-THE CHECKED-IN CONFIGURATION RETAINS THE EXACT MACHINE-SPECIFIC PATHS FOR PROVENANCE. IT IS NOT PORTABLE WITHOUT RECONFIGURATION, RESTORING THE APPROVED WEIGHTS AND REVALIDATING THE RESULT. DO NOT DELETE THESE DEPENDENCIES WHILE USING THE CURRENT DEMO:
+The checked-in configuration retains the exact machine-specific paths for provenance. It is not portable without reconfiguration, restoring the approved weights and revalidating the result. Do not delete these dependencies while using the current demo:
 
-- PYTHON ENVIRONMENT: `/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-20261113/.venv/bin/python`
-- CIRCUITVISION VENDOR SOURCE: `/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-vendor-20261113` AT COMMIT `fc5b775043b577668906b6d0bbb238a690a82965`
-- SAM2 VENDOR SOURCE: `/Users/meghamshbalantrapu/Documents/Projects/kbot-sam2-vendor-20261113` AT COMMIT `2b90b9f5ceec907a1c18123530e92e794ad901a4`
-- SAM CONFIGURATION: `/Users/meghamshbalantrapu/Documents/Projects/kbot-sam2-vendor-20261113/sam2/configs/sam2.1/sam2.1_hiera_l.yaml`
-- INSTALLED NGSPICE EXECUTABLE, MANAGED CODEX CLI, EXISTING AUTHENTICATED LOGIN AND NETWORK/MODEL ACCESS.
+- Python environment: `/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-20261113/.venv/bin/python`
+- CircuitVision vendor source: `/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-vendor-20261113` at commit `fc5b775043b577668906b6d0bbb238a690a82965`
+- SAM2 vendor source: `/Users/meghamshbalantrapu/Documents/Projects/kbot-sam2-vendor-20261113` at commit `2b90b9f5ceec907a1c18123530e92e794ad901a4`
+- SAM configuration: `/Users/meghamshbalantrapu/Documents/Projects/kbot-sam2-vendor-20261113/sam2/configs/sam2.1/sam2.1_hiera_l.yaml`
+- Installed ngspice executable, managed Codex CLI, existing authenticated login and network/model access.
 
-THE PYTHON ENVIRONMENT USES EXISTING EXTERNAL PACKAGES. ENVIRONMENT VERSION METADATA AND THE ORIGINAL SOURCE LOCK ARE UNDER `provenance/`. THESE ARE EVIDENCE OF THE ORIGINAL ENVIRONMENT, NOT A FRESH-INSTALL SUCCESS CLAIM.
+The Python environment uses existing external packages. Environment version metadata and the original source lock are under `provenance/`. These are evidence of the original environment, not a fresh-install success claim.
 
-## INCLUDED THIRD-PARTY MATERIAL
+## Included third-party material
 
-KATEX JAVASCRIPT, CSS AND FONTS ARE INCLUDED WITH THEIR LICENSE. CIRCUITVISION AND ULTRALYTICS LICENSE NOTICES ARE PRESERVED. THESE NOTICES AND THIRD-PARTY SOURCE REMAIN IN THEIR ORIGINAL CASE; THE PROJECT NOTICE DOES NOT OVERRIDE THIRD-PARTY RIGHTS.
+KaTeX JavaScript, CSS and fonts are included with their license. CircuitVision and Ultralytics license notices are preserved. These notices and third-party source remain in their original case; the project notice does not override third-party rights.
 
-## PACKAGING DELTAS
+## Packaging deltas
 
-PIPELINE AND WEB UI SOURCE FILES ARE BYTE-FOR-BYTE COPIES. ONLY THE PREPARED SAMPLE MANIFEST IS REPLACED WITH AN EMPTY LIST. THE PACKAGE READINESS HASH LIST EXCLUDES OMITTED FILES AND HASHES THE EMPTY MANIFEST; THE UNMODIFIED ORIGINAL FREEZE RECORD IS PRESERVED UNDER `provenance/`. READINESS STILL REQUIRES THE EXCLUDED YOLO WEIGHTS AND EXTERNAL SAM ARTIFACTS.
+Pipeline and web UI source files are byte-for-byte copies. Only the prepared sample manifest is replaced with an empty list. The package readiness hash list excludes omitted files and hashes the empty manifest; the unmodified original freeze record is preserved under `provenance/`. Readiness still requires the excluded YOLO weights and external SAM artifacts.
 
-NO TRAINING, MODEL INFERENCE, DATA DELETION OR ACTIVE SERVER CHANGE WAS PERFORMED TO MAKE THIS PACKAGE.
+No training, model inference, data deletion or active server change was performed to make this package.

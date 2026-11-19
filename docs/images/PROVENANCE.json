@@ -24,6 +24,13 @@
       "source_run": "20261118-154428-41302e5d",
       "source_artifact": "circuit.png",
       "sha256": "3dfe120a6b2b9c9de3d79e4dcb300115e39271aa7439fab41f46887e8017d5f1"
+    },
+    {
+      "file": "ac-wire-mask.png",
+      "source_run": "20261118-154428-41302e5d",
+      "source_artifact": "geometry/conductor-mask.png",
+      "stage": "Graph preprocessing after component-body exclusion and crossing processing; not raw SAM output.",
+      "sha256": "65cffb77c70b0c9b4cb087f6b75c8321e467568648564c85caa8e8498290ef30"
     }
   ]
 }
