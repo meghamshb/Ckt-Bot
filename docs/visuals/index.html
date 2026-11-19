@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K-Bot pipeline</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <section id="architecture" class="phase">
+    <h1>Architecture</h1>
+    <div class="architecture" aria-label="Current K-Bot pipeline">
+      <svg class="connectors" viewBox="0 0 1640 600" aria-hidden="true">
+        <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#aab8c8"/></marker></defs>
+        <g fill="none" stroke="#aab8c8" stroke-width="2.5" marker-end="url(#arrow)">
+          <path d="M195 255H217Q230 255 230 240V165Q230 150 245 150"/>
+          <path d="M195 255H217Q230 255 230 270V335Q230 350 245 350"/>
+          <path d="M450 150H470Q490 150 490 170V235Q490 255 515 255"/>
+          <path d="M450 350H470Q490 350 490 330V275Q490 255 515 255"/>
+          <path d="M730 255H795"/><path d="M1010 255H1075"/>
+          <path d="M1290 255H1355"/><path d="M1480 120V195"/>
+          <path d="M1480 310V445"/><path d="M1360 500H1295"/>
+          <path d="M1080 500H1015"/><path d="M800 500H735"/>
+        </g>
+      </svg>
+      <div class="node input" style="left:15px;top:210px;width:180px;height:90px"><strong>Circuit image</strong></div>
+      <div class="node" style="left:250px;top:100px"><strong>YOLO26n</strong><span>Find components</span></div>
+      <div class="node" style="left:250px;top:300px"><strong>SAM2.1</strong><span>Trace diagram strokes</span></div>
+      <div class="node" style="left:520px;top:200px;width:210px;height:110px"><strong>Graph assembler</strong><span>Initial connections</span></div>
+      <div class="node" style="left:800px;top:200px;width:210px;height:110px"><strong>Hosted VLM</strong><span>Read values and polarity</span></div>
+      <div class="node" style="left:1080px;top:200px;width:210px;height:110px"><strong>Final circuit graph</strong><span>Components and nets</span></div>
+      <div class="node" style="left:1360px;top:40px;width:240px;height:80px"><strong>User question</strong></div>
+      <div class="node" style="left:1360px;top:200px;width:240px;height:110px"><strong>Question model</strong><span>Select what to calculate</span></div>
+      <div class="node" style="left:1360px;top:450px;width:240px"><strong>SymPy</strong><span>Calculate</span></div>
+      <div class="node" style="left:1080px;top:450px;width:210px"><strong>ngspice</strong><span>Check the calculation</span></div>
+      <div class="node" style="left:800px;top:450px;width:210px"><strong>Explanation model</strong><span>Present the working</span></div>
+      <div class="node answer" style="left:520px;top:450px;width:210px"><strong>Final answer</strong></div>
+    </div>
+    <p class="caption">Reading, question interpretation and explanation use <span class="mono" id="model-name"></span>. Detection, wire tracing and calculation run locally.</p>
+  </section>
+
+  <section id="components" class="phase">
+    <h1>Component detection</h1>
+    <div class="cards three">
+      <article class="card"><h2>Original circuit</h2><div class="image white"><img data-asset="source" alt="Input AC circuit"></div></article>
+      <article class="card"><h2>YOLO detections</h2><div class="image white"><img data-asset="detections" alt="Actual detected component boxes"></div></article>
+      <article class="card"><h2>Reading the component details</h2><div class="crops"><img data-asset="reading_c1" alt="Actual capacitor reading crop"><img data-asset="reading_c4" alt="Actual source reading crop"></div></article>
+    </div>
+    <p class="caption">The same circuit, its saved detections and actual reading crops.</p>
+  </section>
+
+  <section id="topology" class="phase">
+    <h1>Circuit topology</h1>
+    <div class="cards three">
+      <article class="card"><h2>Processed wire mask</h2><div class="image black"><img data-asset="wire_mask" alt="Actual processed conductor mask"></div></article>
+      <article class="card"><h2>Connection points</h2><div class="image black"><img data-asset="connection_points" alt="Stored wire paths with actual pin anchors"></div></article>
+      <article class="card"><h2>Final net mapping</h2><div class="image black"><img data-asset="net_mapping" alt="Wire paths colored by the saved net assignments"></div></article>
+    </div>
+    <p class="caption">Component bodies are removed from the mask. Colors and points follow the run's stored wire paths and pin assignments.</p>
+  </section>
+
+  <section id="json-output" class="phase">
+    <h1>Structured circuit output</h1>
+    <div class="cards two">
+      <article class="card"><h2>JSON schema <small>excerpt</small></h2><pre id="schema-code"></pre><p class="source-label">circuit.schema.json</p></article>
+      <article class="card"><h2>Actual JSON output <small>excerpt</small></h2><pre id="output-code"></pre><p class="source-label">circuit.json</p></article>
+    </div>
+  </section>
+
+  <section id="analysis" class="phase">
+    <h1>From connections to the answer</h1>
+    <div class="cards analysis-grid">
+      <article class="card"><h2>Initial netlist view</h2><div id="initial-connections"></div><p class="source-label">Connections from candidate.json before values are read</p></article>
+      <article class="card"><h2>Generated SPICE netlist <small>excerpt</small></h2><pre id="spice-code"></pre><p class="source-label">Literal lines from circuit.spice</p></article>
+      <article class="card"><h2>Checked answer</h2><div class="result"><p id="time-answer" class="formula"></p><p id="complex-answer" class="complex"></p><div class="check">SPICE cross-check <strong id="crosscheck-status"></strong></div><p class="muted">The explanation uses this recorded result.</p><h3>SPICE node names</h3><div id="node-aliases" class="mono"></div></div><p class="source-label">answer.json and spice-result.json</p></article>
+    </div>
+    <p class="caption">Initial connections are a view of the saved graph, not an emitted SPICE file. The final netlist is the actual generated output.</p>
+  </section>
+</main>
+<script>
+fetch('run-data.json').then(response => {if (!response.ok) throw Error('Run data could not be loaded');return response.json();}).then(data => {
+  document.querySelector('#model-name').textContent = data.metadata.model;
+  document.querySelectorAll('[data-asset]').forEach(img => img.src = data.assets[img.dataset.asset]);
+  const schema = data.schema_excerpt;
+  const component = schema.properties.components.items;
+  const arrayLines = (items, width) => {
+    const lines=[];
+    for (let i=0;i<items.length;i+=width) lines.push(items.slice(i,i+width).map(item=>JSON.stringify(item)).join(', '));
+    return lines;
+  };
+  document.querySelector('#schema-code').textContent = '{\n  "title": '+JSON.stringify(schema.title)+',\n  "type": '+JSON.stringify(schema.type)+',\n  "required": [\n'+arrayLines(schema.required,3).map(line=>'    '+line).join(',\n')+'\n  ],\n  "properties": {\n    "components": {\n      "type": "array",\n      "items": {\n        "type": "object",\n        "required": [\n'+arrayLines(component.required,3).map(line=>'          '+line).join(',\n')+'\n        ]\n      }\n    }\n  }\n}';
+  const rows = data.final_circuit_excerpt.components.map(c => ({id:c.id,type:c.type,pins:c.pins,value:c.value,unit:c.unit}));
+  const pins = data.final_circuit_excerpt.pins.map(p => ({id:p.id,net_id:p.net_id}));
+  document.querySelector('#output-code').textContent = '{\n  "components": [\n' + rows.map(c => '    '+JSON.stringify({id:c.id,type:c.type}).slice(0,-1)+',\n      "pins": '+JSON.stringify(c.pins)+', "value": '+JSON.stringify(c.value)+', "unit": '+JSON.stringify(c.unit)+'}').join(',\n') + '\n  ],\n  "pins": [\n' + pins.map(p => '    '+JSON.stringify(p)).join(',\n') + '\n  ]\n}';
+  const table = document.createElement('table');
+  const header = document.createElement('tr');['ID','Component','Connections'].forEach(label => {const th=document.createElement('th');th.textContent=label;header.append(th);});table.append(header);
+  data.initial_connections.forEach(row => {const tr=document.createElement('tr');[row.component,row.type.replaceAll('_',' '),row.pins.map(p=>p.net).join(' ↔ ')].forEach(text=>{const td=document.createElement('td');td.textContent=text;tr.append(td);});table.append(tr);});
+  document.querySelector('#initial-connections').append(table);
+  const spice = data.spice_netlist.split('\n');
+  const literalExcerpt = spice.filter(line => /^(\* Reference|\* c\d|[CRLVI]d\d)/.test(line));
+  document.querySelector('#spice-code').textContent=literalExcerpt.join('\n');
+  const q=data.answer_summary.quantity;
+  const sign=q.phase_degrees<0?'−':'+';
+  document.querySelector('#time-answer').textContent='vₒ(t) = '+q.magnitude.toFixed(5)+' cos('+data.answer_summary.angular_frequency_rad_s+'t '+sign+' '+Math.abs(q.phase_degrees).toFixed(4)+'°) V';
+  document.querySelector('#complex-answer').textContent=q.real.toFixed(5)+' '+(q.imaginary<0?'−':'+')+' j'+Math.abs(q.imaginary).toFixed(5)+' V';
+  document.querySelector('#crosscheck-status').textContent=data.answer_summary.numerical_verification.crosscheck_status;
+  const aliases=data.spice_node_mapping;
+  const map=aliases.nodes || aliases;
+  document.querySelector('#node-aliases').textContent=Object.entries(map).map(([a,b])=>a+' → '+b).join('\n');
+  document.documentElement.dataset.ready='true';
+}).catch(error=>{document.body.dataset.error=error.message;throw error;});
+</script>
+</body>
+</html>

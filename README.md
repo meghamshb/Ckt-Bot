@@ -8,35 +8,35 @@ K-Bot reads circuit diagrams and produces worked answers. The web interface show
 
 <a name="pipeline"></a>
 
+## Architecture
+
+![Current K-Bot architecture](docs/visuals/architecture.png)
+
 ## How it works
 
-The images below are actual outputs from a saved run on Sadiku Figure 10.52.
-
-<table>
-<tr><th width="50%">Circuit image</th><th width="50%">Component detections</th></tr>
-<tr><td><img src="docs/images/ac-source.png" alt="Input AC circuit"></td><td><img src="docs/images/ac-detections.png" alt="K-Bot YOLO component detections"></td></tr>
-</table>
+The panels use actual outputs from the completed Sadiku Figure 10.52 run, a known example.
 
 ### Find the components
 
 **YOLO26n** identifies components and marks their positions with bounding boxes.
 
-### Trace the wires
+![Original image, actual YOLO detections and component reading crops](docs/visuals/components.png)
 
-**SAM2.1** helps isolate the diagram's lines. Processing then removes component bodies to produce the wire mask below.
+### Trace wires and connect components
 
-<p align="center"><img src="docs/images/ac-wire-mask.png" width="850" alt="Actual processed wire mask used for connection tracing"></p>
-White lines show the retained wires. Gaps where components were removed are expected.
+**SAM2.1** supplies the line mask. The **graph assembler** traces connections between component terminals.
 
-### Connect the components
-
-The **graph assembler** works out which component terminals are connected and builds the circuit used for calculation.
-
-<p align="center"><img src="docs/images/ac-final-graph.png" width="850" alt="Final K-Bot circuit graph showing components, pins and nets"></p>
+![Processed wire mask, connection points and final net mapping](docs/visuals/topology.png)
 
 ### Read, calculate and explain
 
-The **vision-language model** reads values and labels and interprets the question. **SymPy** calculates the answer, **ngspice** checks the calculation, and the explanation model presents the working.
+The **vision-language model** reads values and labels. The question model selects what to calculate. **SymPy** calculates the answer, **ngspice** checks it, and the explanation model presents the working.
+
+![Actual JSON schema and circuit output excerpts](docs/visuals/json-output.png)
+
+![Initial connections, generated SPICE netlist and checked answer](docs/visuals/analysis.png)
+
+The panels are rendered from [HTML and CSS](docs/visuals/index.html), using the saved run data. Their source and rendering script are included in the same folder.
 
 ## Run K-Bot
 

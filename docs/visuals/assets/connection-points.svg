@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="538" viewBox="0 0 768 269" role="img">
+<title>Stored wire fragments and pin anchor points from the saved KBot candidate graph</title>
+<rect width="768" height="269" fill="#05080c"/>
+<polyline points="180.5,138.5 180.5,136.5 179.5,135.5 180.5,134.5 180.5,77.5 181.5,77.5 182.5,76.5 221.5,76.5" fill="none" stroke="#f56c6c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="180.5,191.5 180.5,202.5 179.5,203.5 179.5,205.5 180.5,206.5 180.5,219.5 179.5,220.5 180.5,221.5 180.5,240.5 179.5,241.5 179.5,243.5 180.5,244.5 180.5,256.5 389.5,256.5" fill="none" stroke="#6c94f5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="282.5,76.5 327.5,76.5 328.5,77.5" fill="none" stroke="#bcf56c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="314.5,28.5 327.5,28.5" fill="none" stroke="#f56ce4" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="315.5,139.5 315.5,118.5 316.5,118.5 317.5,117.5 390.5,117.5" fill="none" stroke="#6cf5de" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="315.5,201.5 315.5,220.5 388.5,220.5 389.5,221.5" fill="none" stroke="#f5b66c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="339.5,76.5 388.5,76.5 389.5,77.5" fill="none" stroke="#8e6cf5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="389.5,77.5 389.5,115.5 390.5,116.5 390.5,117.5" fill="none" stroke="#72f56c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="389.5,77.5 390.5,77.5 391.5,76.5 491.5,76.5" fill="none" stroke="#f56c9a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="389.5,221.5 389.5,256.5" fill="none" stroke="#6cc2f5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="389.5,221.5 390.5,221.5 391.5,220.5 464.5,220.5 465.5,219.5 465.5,195.5" fill="none" stroke="#eaf56c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="389.5,256.5 665.5,256.5 666.5,255.5 666.5,202.5" fill="none" stroke="#d86cf5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="390.5,117.5 463.5,117.5 465.5,119.5 465.5,146.5" fill="none" stroke="#6cf5b0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="553.5,76.5 665.5,76.5 666.5,77.5 666.5,139.5" fill="none" stroke="#f5886c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="325.5" cy="76.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="299.5" y="64.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p1</text>
+<circle cx="341.5" cy="76.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="346.5" y="96.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p2</text>
+<circle cx="492.5" cy="76.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="466.5" y="64.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p3</text>
+<circle cx="552.5" cy="76.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="557.5" y="96.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p4</text>
+<circle cx="222.5" cy="76.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="198.5" y="64.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p5</text>
+<circle cx="281.5" cy="76.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="271.5" y="98.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p6</text>
+<circle cx="180.5" cy="140.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="146.5" y="145.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p7</text>
+<circle cx="180.5" cy="191.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="146.5" y="199.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p8</text>
+<circle cx="666.5" cy="141.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="674.5" y="146.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p9</text>
+<circle cx="666.5" cy="201.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="674.5" y="211.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p10</text>
+<circle cx="315.5" cy="141.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="272.5" y="146.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p11</text>
+<circle cx="315.5" cy="200.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="272.5" y="212.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p12</text>
+<circle cx="465.5" cy="145.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="475.5" y="144.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p13</text>
+<circle cx="465.5" cy="195.5" r="4" fill="#fff" stroke="#05080c" stroke-width="1.5"/>
+<text x="475.5" y="212.5" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="600">p14</text>
+</svg>

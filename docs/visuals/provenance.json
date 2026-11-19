@@ -1,0 +1,66 @@
+{
+  "source_run": "cleanup-circuit-run/custom",
+  "source_example": "Sadiku Fig. 10.52",
+  "source_sha256": {
+    "candidate.json": "9afabf62489296d97d07ef0dbd6f4114444be8f3f5751c0438fdef84dbccc15a",
+    "circuit.json": "f038700308cfb5b07dcdb0309e299aa2d853fb54e0e070a8e10e834b690d8caa",
+    "readings.json": "e07ab36a6963e9261f7e024305026d3214b6e9c4df214f103f2475f5eb848120",
+    "answer.json": "ec25a8b5359546df80e76fd3f25a22056ae6b63afca69816aa864eb614dd4020",
+    "calculation.json": "a99ec6241e2240be3d7c6d6eda389fe8f4057e5f50dbb7f115a238b141cae340",
+    "spice-result.json": "f6759fcb15bd2407a2df73beb4eb7b5d6bb38038792cb5d1971e81795f9342af",
+    "run.json": "d4424cf56dc9430aa15b7b9749f39e99272ab5a04055219577924192c882a040",
+    "detections.json": "5e39a9794f84081ae3615e76682b3d332dc5646eb131325cecd9b73a1431e7e7",
+    "source.png": "ced984ca4e372d8b2bef20d0bac3750dbc3a1edb10782b2c04d5c03e677c64e2",
+    "detections-overlay.png": "0ac98115dec86e2735c1e575e5517d87cf030e79e70a1f092a7945c74b0703f1",
+    "geometry/conductor-mask.png": "65cffb77c70b0c9b4cb087f6b75c8321e467568648564c85caa8e8498290ef30",
+    "circuit.png": "3dfe120a6b2b9c9de3d79e4dcb300115e39271aa7439fab41f46887e8017d5f1",
+    "reading-sheet-components/c1.png": "faa26ba629fb0ff8168049bc0a12c56dd5ee725b15a4b35bd4dc8461772ebe2c",
+    "reading-sheet-components/c4.png": "b0409a5cf366a28817b798376aaec564a1317111ed15d43b321dc13d5c487ed2",
+    "circuit.spice": "54ae368a6970631e4f381cd050b43063784bb22c23f631ce24bba59dcdc68cb6"
+  },
+  "schema_source": "runtime/src/kbot_pipeline/circuit.schema.json",
+  "schema_sha256": "4cb715122572ed8c499b04ba2da65546a98d0239abb69d3a8665378919fab10c",
+  "description": "Owner-requested README evidence assets from one actual completed 87-second run. Known example, no new model inference. Third-party diagram rights are not claimed.",
+  "rendering": [
+    "Processed wire mask is geometry/conductor-mask.png, not raw SAM.",
+    "Connection-point colors distinguish saved fragments; dots and labels use actual stored pin anchors.",
+    "Net mapping colors use final circuit net.fragment_ids membership. No new edges are drawn.",
+    "The unattached n4 candidate is not one of the five final electrical nets.",
+    "SPICE names are compiler aliases; the mapping is included.",
+    "An initial valueless SPICE netlist is not emitted by this pipeline. Initial connections are displayed from the candidate graph."
+  ],
+  "outputs": {
+    "source.png": "ced984ca4e372d8b2bef20d0bac3750dbc3a1edb10782b2c04d5c03e677c64e2",
+    "detections-overlay.png": "0ac98115dec86e2735c1e575e5517d87cf030e79e70a1f092a7945c74b0703f1",
+    "processed-wire-mask.png": "65cffb77c70b0c9b4cb087f6b75c8321e467568648564c85caa8e8498290ef30",
+    "final-circuit-overlay.png": "3dfe120a6b2b9c9de3d79e4dcb300115e39271aa7439fab41f46887e8017d5f1",
+    "reading-c1.png": "faa26ba629fb0ff8168049bc0a12c56dd5ee725b15a4b35bd4dc8461772ebe2c",
+    "reading-c4.png": "b0409a5cf366a28817b798376aaec564a1317111ed15d43b321dc13d5c487ed2",
+    "connection-points.svg": "0087f26d16048a6a5ab3ee8d92a272849312cd035b0b5bf869ee4c8dd84c6703",
+    "net-mapping.svg": "9104f211768327ebf9a8afedc3ee821397616a2998a65be7a0cf6acb75a61d5c"
+  },
+  "run_data_sha256": "dbcfc0a182072baf906f96c0cd45f1cb4a2359e2d938c625069de4eca36f4e00",
+  "html_rendering": {
+    "source_files": [
+      "index.html",
+      "styles.css",
+      "render.cjs"
+    ],
+    "engine": "Playwright Chromium",
+    "playwright_version": "1.65.1",
+    "model_inference_performed_for_rendering": false,
+    "architecture": "Current hosted reader/question/explanation roles; SymPy calculation with ngspice cross-check.",
+    "source_sha256": {
+      "index.html": "afb7075868859f1d87a0b55f890a89911b4bc26b0c6a26025236d0577bd77c70",
+      "styles.css": "53e23722a61ce584d1f65694950d845583837451adff6fa367088fc3c5531de4",
+      "render.cjs": "afc1e817d930da17c70ea6c64eda22d79c9051cc645b14d69a28d7f105d1b8c9"
+    },
+    "panels": {
+      "architecture.png": "87c4efe6200f134f7a9892563b29a53447915114ae3c76e043c11ceca8ab7ca9",
+      "components.png": "59aedd0247fbef6070b3db4dd342a1749f5b592070b64c6e38f805589068c82d",
+      "topology.png": "1906692f1dee007c8318d66c78b650a15cb37d95c26527a5d544195baa136cb1",
+      "json-output.png": "a41c710814d7411086dd344ddfe4137a6ad76037cb033c5a6b3131d519cb08fe",
+      "analysis.png": "0047f72161722a45c7a6414846c66bedf1a86b8fde3d13746aca75d628df36c5"
+    }
+  }
+}

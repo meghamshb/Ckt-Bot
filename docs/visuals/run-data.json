@@ -1,0 +1,759 @@
+{
+  "metadata": {
+    "run_id": "cleanup-circuit-run/custom",
+    "run_date": "2026-11-19",
+    "example": "Sadiku Fig. 10.52",
+    "status": "completed",
+    "seconds": 87.09729408300154,
+    "question": "Find v_o(t) in sinusoidal steady state, using the marked polarity across the 1 ohm resistor. Show the phasor conversion, nodal equation and final time-domain voltage.",
+    "model": "gpt-6.1-terra",
+    "provider": "codex_cli",
+    "known_example": true,
+    "description": "Saved completed run from the fresh installation. This known circuit is not an unseen evaluation."
+  },
+  "assets": {
+    "source": "assets/source.png",
+    "detections": "assets/detections-overlay.png",
+    "wire_mask": "assets/processed-wire-mask.png",
+    "final_overlay": "assets/final-circuit-overlay.png",
+    "reading_c1": "assets/reading-c1.png",
+    "reading_c4": "assets/reading-c4.png",
+    "connection_points": "assets/connection-points.svg",
+    "net_mapping": "assets/net-mapping.svg"
+  },
+  "schema_excerpt": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "K-Bot evidence circuit",
+    "type": "object",
+    "required": [
+      "schema_version",
+      "status",
+      "image",
+      "components",
+      "pins",
+      "nets",
+      "arrows",
+      "labels",
+      "evidence",
+      "unresolved"
+    ],
+    "properties": {
+      "schema_version": {
+        "const": "kbot.circuit/1.0"
+      },
+      "components": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "bbox": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "pins": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "value": {},
+            "unit": {}
+          },
+          "required": [
+            "id",
+            "type",
+            "bbox",
+            "pins",
+            "value",
+            "unit"
+          ]
+        }
+      },
+      "pins": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "component_id": {
+              "type": "string"
+            },
+            "role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "terminal_px": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "anchor_px": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "net_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "evidence": {
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "component_id",
+            "role",
+            "terminal_px",
+            "anchor_px",
+            "net_id",
+            "evidence"
+          ]
+        }
+      },
+      "nets": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "pins": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ground": {
+              "type": "boolean"
+            },
+            "evidence": {
+              "type": "array"
+            }
+          },
+          "required": [
+            "id",
+            "pins",
+            "ground",
+            "evidence"
+          ]
+        }
+      }
+    }
+  },
+  "candidate_excerpt": {
+    "components": [
+      {
+        "id": "c1",
+        "type": "capacitor",
+        "pins": [],
+        "value": null,
+        "unit": null
+      },
+      {
+        "id": "c6",
+        "type": "resistor",
+        "pins": [],
+        "value": null,
+        "unit": null
+      }
+    ],
+    "pins": [
+      {
+        "id": "p1",
+        "component_id": "c1",
+        "anchor_px": [
+          325.5,
+          76.5
+        ],
+        "net_id": "n6"
+      },
+      {
+        "id": "p2",
+        "component_id": "c1",
+        "anchor_px": [
+          341.5,
+          76.5
+        ],
+        "net_id": "n1"
+      },
+      {
+        "id": "p11",
+        "component_id": "c6",
+        "anchor_px": [
+          315.5,
+          141.5
+        ],
+        "net_id": "n1"
+      },
+      {
+        "id": "p12",
+        "component_id": "c6",
+        "anchor_px": [
+          315.5,
+          200.5
+        ],
+        "net_id": "n3"
+      }
+    ],
+    "nets": [
+      {
+        "id": "n1",
+        "pins": [
+          "p2",
+          "p3",
+          "p11",
+          "p13"
+        ]
+      },
+      {
+        "id": "n3",
+        "pins": [
+          "p8",
+          "p10",
+          "p12",
+          "p14"
+        ]
+      },
+      {
+        "id": "n6",
+        "pins": [
+          "p1",
+          "p6"
+        ]
+      }
+    ]
+  },
+  "initial_connections": [
+    {
+      "component": "c1",
+      "type": "capacitor",
+      "pins": [
+        {
+          "id": "p1",
+          "net": "n6"
+        },
+        {
+          "id": "p2",
+          "net": "n1"
+        }
+      ]
+    },
+    {
+      "component": "c2",
+      "type": "inductor",
+      "pins": [
+        {
+          "id": "p3",
+          "net": "n1"
+        },
+        {
+          "id": "p4",
+          "net": "n2"
+        }
+      ]
+    },
+    {
+      "component": "c3",
+      "type": "resistor",
+      "pins": [
+        {
+          "id": "p5",
+          "net": "n5"
+        },
+        {
+          "id": "p6",
+          "net": "n6"
+        }
+      ]
+    },
+    {
+      "component": "c4",
+      "type": "voltage_source",
+      "pins": [
+        {
+          "id": "p7",
+          "net": "n5"
+        },
+        {
+          "id": "p8",
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "component": "c5",
+      "type": "resistor",
+      "pins": [
+        {
+          "id": "p9",
+          "net": "n2"
+        },
+        {
+          "id": "p10",
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "component": "c6",
+      "type": "resistor",
+      "pins": [
+        {
+          "id": "p11",
+          "net": "n1"
+        },
+        {
+          "id": "p12",
+          "net": "n3"
+        }
+      ]
+    },
+    {
+      "component": "c7",
+      "type": "current_source",
+      "pins": [
+        {
+          "id": "p13",
+          "net": "n1"
+        },
+        {
+          "id": "p14",
+          "net": "n3"
+        }
+      ]
+    }
+  ],
+  "initial_connections_label": "Initial connections from candidate.json. This is a derived display table, not an emitted SPICE netlist.",
+  "readings_excerpt": {
+    "components": [
+      {
+        "value": "1/12",
+        "unit": "F",
+        "designators": [],
+        "pin_roles": [],
+        "name": null,
+        "id": "c1"
+      },
+      {
+        "value": "16 sin 4t",
+        "unit": "V",
+        "designators": [],
+        "pin_roles": [
+          {
+            "pin_id": "p7",
+            "role": "positive"
+          },
+          {
+            "pin_id": "p8",
+            "role": "negative"
+          }
+        ],
+        "name": null,
+        "id": "c4"
+      },
+      {
+        "value": "1",
+        "unit": "Ω",
+        "designators": [],
+        "pin_roles": [],
+        "name": null,
+        "id": "c6"
+      }
+    ],
+    "voltage_references": [
+      {
+        "pair_id": "vp2",
+        "label": "v_o",
+        "basis": "native_polarity_pair",
+        "visual_evidence": "The marked polarity across the 1 Ω resistor is positive at p11 and negative at p12.",
+        "positive_site_id": "p11",
+        "negative_site_id": "p12",
+        "positive_net_id": "n1",
+        "negative_net_id": "n3"
+      }
+    ]
+  },
+  "final_circuit_excerpt": {
+    "components": [
+      {
+        "id": "c1",
+        "type": "capacitor",
+        "pins": [
+          "p1",
+          "p2"
+        ],
+        "value": "1/12",
+        "unit": "F"
+      },
+      {
+        "id": "c6",
+        "type": "resistor",
+        "pins": [
+          "p11",
+          "p12"
+        ],
+        "value": "1",
+        "unit": "Ω"
+      }
+    ],
+    "pins": [
+      {
+        "id": "p1",
+        "component_id": "c1",
+        "net_id": "n6",
+        "role": null
+      },
+      {
+        "id": "p2",
+        "component_id": "c1",
+        "net_id": "n1",
+        "role": null
+      },
+      {
+        "id": "p11",
+        "component_id": "c6",
+        "net_id": "n1",
+        "role": null
+      },
+      {
+        "id": "p12",
+        "component_id": "c6",
+        "net_id": "n3",
+        "role": null
+      }
+    ],
+    "nets": [
+      {
+        "id": "n1",
+        "pins": [
+          "p2",
+          "p3",
+          "p11",
+          "p13"
+        ]
+      },
+      {
+        "id": "n3",
+        "pins": [
+          "p8",
+          "p10",
+          "p12",
+          "p14"
+        ]
+      },
+      {
+        "id": "n6",
+        "pins": [
+          "p1",
+          "p6"
+        ]
+      }
+    ]
+  },
+  "component_readings": [
+    {
+      "value": "1/12",
+      "unit": "F",
+      "designators": [],
+      "pin_roles": [],
+      "name": null,
+      "id": "c1"
+    },
+    {
+      "value": "2",
+      "unit": "H",
+      "designators": [],
+      "pin_roles": [],
+      "name": null,
+      "id": "c2"
+    },
+    {
+      "value": "4",
+      "unit": "Ω",
+      "designators": [],
+      "pin_roles": [],
+      "name": null,
+      "id": "c3"
+    },
+    {
+      "value": "16 sin 4t",
+      "unit": "V",
+      "designators": [],
+      "pin_roles": [
+        {
+          "pin_id": "p7",
+          "role": "positive"
+        },
+        {
+          "pin_id": "p8",
+          "role": "negative"
+        }
+      ],
+      "name": null,
+      "id": "c4"
+    },
+    {
+      "value": "6",
+      "unit": "Ω",
+      "designators": [],
+      "pin_roles": [],
+      "name": null,
+      "id": "c5"
+    },
+    {
+      "value": "1",
+      "unit": "Ω",
+      "designators": [],
+      "pin_roles": [],
+      "name": null,
+      "id": "c6"
+    },
+    {
+      "value": "2 cos 4t",
+      "unit": "A",
+      "designators": [],
+      "pin_roles": [
+        {
+          "pin_id": "p13",
+          "role": "to"
+        },
+        {
+          "pin_id": "p14",
+          "role": "from"
+        }
+      ],
+      "name": null,
+      "id": "c7"
+    }
+  ],
+  "net_memberships": [
+    {
+      "id": "n1",
+      "pins": [
+        "p2",
+        "p3",
+        "p11",
+        "p13"
+      ],
+      "color": "#51dfbc"
+    },
+    {
+      "id": "n2",
+      "pins": [
+        "p4",
+        "p9"
+      ],
+      "color": "#f4b75e"
+    },
+    {
+      "id": "n3",
+      "pins": [
+        "p8",
+        "p10",
+        "p12",
+        "p14"
+      ],
+      "color": "#64a0ff"
+    },
+    {
+      "id": "n5",
+      "pins": [
+        "p5",
+        "p7"
+      ],
+      "color": "#d18ef7"
+    },
+    {
+      "id": "n6",
+      "pins": [
+        "p1",
+        "p6"
+      ],
+      "color": "#fc7b9c"
+    }
+  ],
+  "spice_netlist": "Observed circuit compiled by K-Bot; ngspice independent numerical run\n* Reference n3 -> 0: mathematical gauge only\n* c1 capacitor\nvprobe_d1 n5 x_d1 0\nCd1 x_d1 n1 0.083333333333333329\n* c2 inductor\nvprobe_d2 n1 x_d2 0\nLd2 x_d2 n2 2\n* c3 resistor\nvprobe_d3 n4 x_d3 0\nRd3 x_d3 n5 4\n* c4 voltage_source\nvprobe_d4 n4 x_d4 0\nVd4 x_d4 0 DC 0 AC 16 -90\n* c5 resistor\nvprobe_d5 n2 x_d5 0\nRd5 x_d5 0 6\n* c6 resistor\nvprobe_d6 n1 x_d6 0\nRd6 x_d6 0 1\n* c7 current_source\nvprobe_d7 0 x_d7 0\nId7 x_d7 n1 DC 0 AC 2 0\n.options numdgt=15 gmin=0 gminsteps=0 srcsteps=0\n.control\nset noaskquit\nset filetype=ascii\nac lin 1 0.63661977236758138 0.63661977236758138\nwrite spice.raw all\nquit\n.endc\n.end\n",
+  "spice_node_mapping": {
+    "n1": "n1",
+    "n2": "n2",
+    "n3": "0",
+    "n5": "n4",
+    "n6": "n5"
+  },
+  "answer_summary": {
+    "status": "answered",
+    "quantity": {
+      "id": "vo",
+      "name": "v_o",
+      "unit": "V",
+      "reference_direction": "as_printed v_o; peak phasor",
+      "kind": "phasor",
+      "real": 3.140939597315436,
+      "imaginary": -2.2013422818791946,
+      "expression": null,
+      "magnitude": 3.835545514783152,
+      "phase_degrees": -35.02487327954136
+    },
+    "equations": [
+      "v_o = 468/149 - 328*I/149 V (as_printed v_o; peak phasor)"
+    ],
+    "numerical_verification": {
+      "spice_status": "completed",
+      "crosscheck_status": "passed"
+    },
+    "crosscheck": {
+      "status": "passed",
+      "checked_quantities": 19,
+      "mismatches": [],
+      "skipped_quantities": [],
+      "absolute_tolerance": 1e-07,
+      "relative_tolerance": 1e-07,
+      "scope": "Agreement between independent numerical engines on the same extracted circuit; not image/topology validation."
+    },
+    "phasor_convention": "peak cosine reference",
+    "angular_frequency_rad_s": 4.0
+  },
+  "equation_data": {
+    "exact_result": "468/149 - 328*I/149",
+    "equations": [
+      "I_c1 - I*(-V_n1 + V_n6)/3 = 0",
+      "-8*I*I_c2 + V_n1 - V_n2 = 0",
+      "-4*I_c3 + V_n5 - V_n6 = 0",
+      "-V_n3 + V_n5 + 16*I = 0",
+      "-6*I_c5 + V_n2 - V_n3 = 0",
+      "-I_c6 + V_n1 - V_n3 = 0",
+      "I_c7 - 2 = 0",
+      "V_n3 = 0",
+      "-I_c1 + I_c2 + I_c6 - I_c7 = 0",
+      "-I_c2 + I_c5 = 0",
+      "I_c3 + I_c4 = 0",
+      "I_c1 - I_c3 = 0"
+    ],
+    "exact_residuals_zero": true
+  },
+  "detections": [
+    {
+      "id": "c1",
+      "type": "capacitor",
+      "bbox": [
+        326.74395751953125,
+        56.72627258300781,
+        340.04998779296875,
+        96.19560241699219
+      ],
+      "confidence": 0.9001340866088867
+    },
+    {
+      "id": "c2",
+      "type": "inductor",
+      "bbox": [
+        493.92791748046875,
+        64.3216552734375,
+        551.3447875976562,
+        87.07585144042969
+      ],
+      "confidence": 0.945669412612915
+    },
+    {
+      "id": "c3",
+      "type": "resistor",
+      "bbox": [
+        223.12722778320312,
+        65.83064270019531,
+        280.7362365722656,
+        88.09074401855469
+      ],
+      "confidence": 0.9398579597473145
+    },
+    {
+      "id": "c4",
+      "type": "voltage_source",
+      "bbox": [
+        156.51197814941406,
+        141.81802368164062,
+        204.6360626220703,
+        190.16464233398438
+      ],
+      "confidence": 0.9695510268211365
+    },
+    {
+      "id": "c5",
+      "type": "resistor",
+      "bbox": [
+        656.3604736328125,
+        142.50979614257812,
+        678.6531982421875,
+        200.10922241210938
+      ],
+      "confidence": 0.9386039972305298
+    },
+    {
+      "id": "c6",
+      "type": "resistor",
+      "bbox": [
+        304.03955078125,
+        142.7516632080078,
+        326.65032958984375,
+        199.7691192626953
+      ],
+      "confidence": 0.9401582479476929
+    },
+    {
+      "id": "c7",
+      "type": "current_source",
+      "bbox": [
+        441.6231689453125,
+        146.5657958984375,
+        489.9971923828125,
+        194.81488037109375
+      ],
+      "confidence": 0.969744861125946
+    }
+  ],
+  "notes": [
+    "Processed wire mask is geometry/conductor-mask.png, not raw SAM.",
+    "Connection-point colors distinguish saved fragments; dots and labels use actual stored pin anchors.",
+    "Net mapping colors use final circuit net.fragment_ids membership. No new edges are drawn.",
+    "The unattached n4 candidate is not one of the five final electrical nets.",
+    "SPICE names are compiler aliases; the mapping is included.",
+    "An initial valueless SPICE netlist is not emitted by this pipeline. Initial connections are displayed from the candidate graph."
+  ]
+}

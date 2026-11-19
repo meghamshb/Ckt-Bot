@@ -1,0 +1,317 @@
+:root {
+  color-scheme:dark;
+  --bg:#0c1118;
+  --panel:#121b26;
+  --border:#344353;
+  --text:#edf2f7;
+  --muted:#a1afbd;
+  --accent:#65d3c3;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  background:#080c12;
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+main {
+  width:1720px;
+  margin:0 auto;
+  padding:32px 0;
+}
+
+.phase {
+  width:1720px;
+  margin-bottom:34px;
+  padding:32px 38px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+h1 {
+  font-size:35px;
+  line-height:1.2;
+  margin:0 0 26px;
+  font-weight:600;
+  letter-spacing:-.5px;
+}
+
+h2 {
+  font-size:23px;
+  line-height:1.25;
+  margin:0;
+  padding:19px 20px;
+  background:#17222e;
+  border-bottom:1px solid var(--border);
+  font-weight:500;
+}
+
+small {
+  font-size:17px;
+  color:var(--muted);
+  font-weight:400;
+  margin-left:5px;
+}
+
+.cards {
+  display:grid;
+  gap:20px;
+}
+
+.three {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.two {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.card {
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--panel);
+  display:flex;
+  flex-direction:column;
+}
+
+.card:nth-child(2) h2 {
+  background:#142e30;
+}
+
+.card:nth-child(3) h2 {
+  background:#202d40;
+}
+
+.image {
+  height:325px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.image img {
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.white {
+  background:white;
+}
+
+.black {
+  background:#000;
+}
+
+.crops {
+  display:grid;
+  height:325px;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  background:white;
+  padding:12px;
+}
+
+.crops img {
+  width:100%;
+  height:100%;
+  min-width:0;
+  object-fit:contain;
+}
+
+.caption {
+  font-size:19px;
+  line-height:1.4;
+  color:var(--muted);
+  margin:23px 0 0;
+}
+
+.mono,pre {
+  font-family:Menlo,Consolas,monospace;
+}
+
+.architecture {
+  height:600px;
+  width:1640px;
+  position:relative;
+  background-image:radial-gradient(#27313f 1.5px,transparent 1.5px);
+  background-size:38px 38px;
+}
+
+.connectors {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.node {
+  position:absolute;
+  width:200px;
+  height:100px;
+  border:2px solid #bbc8d6;
+  background:#101620;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:13px;
+  text-align:center;
+}
+
+.node strong {
+  font-size:22px;
+  font-weight:500;
+  line-height:1.2;
+}
+
+.node span {
+  font-size:18px;
+  line-height:1.3;
+  color:#b7c5d3;
+}
+
+.node.answer {
+  border-color:var(--accent);
+}
+
+pre {
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  font-size:19px;
+  line-height:1.45;
+  margin:0;
+  padding:23px 24px;
+  color:#d6e8f0;
+  tab-size:2;
+}
+
+#schema-code {
+  font-size:18px;
+  line-height:1.35;
+}
+
+#json-output .card {
+  min-height:620px;
+}
+
+#output-code {
+  font-size:20px;
+  line-height:1.6;
+}
+
+.source-label {
+  margin:auto 0 0;
+  padding:15px 21px;
+  font-size:17px;
+  line-height:1.4;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+
+.analysis-grid {
+  grid-template-columns:1fr 1.12fr 1fr;
+}
+
+.analysis-grid .card {
+  min-height:530px;
+}
+
+table {
+  border-collapse:collapse;
+  width:100%;
+  font-size:20px;
+}
+
+th,td {
+  padding:17px 16px;
+  text-align:left;
+  border-bottom:1px solid #283646;
+}
+
+th {
+  color:var(--muted);
+  font-size:17px;
+  font-weight:400;
+}
+
+td:first-child,td:last-child {
+  font-family:Menlo,Consolas,monospace;
+}
+
+td:last-child {
+  white-space:nowrap;
+  color:var(--accent);
+}
+
+#spice-code {
+  font-size:17px;
+  line-height:1.55;
+  padding:22px;
+}
+
+.result {
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.formula {
+  font-size:28px;
+  line-height:1.6;
+  margin:3px 0 0;
+  color:var(--accent);
+}
+
+.complex {
+  font-family:Menlo,Consolas,monospace;
+  font-size:20px;
+  margin:0;
+}
+
+.check {
+  font-size:21px;
+  line-height:1.5;
+  border-top:1px solid var(--border);
+  padding-top:21px;
+}
+
+.check strong {
+  display:block;
+  font-weight:500;
+  color:var(--accent);
+}
+
+.muted {
+  font-size:18px;
+  color:var(--muted);
+  line-height:1.5;
+  margin:0;
+}
+
+h3 {
+  font-size:19px;
+  font-weight:500;
+  margin:0;
+}
+
+#node-aliases {
+  white-space:pre-wrap;
+  line-height:1.7;
+  color:var(--muted);
+  font-size:18px;
+}
