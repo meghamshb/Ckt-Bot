@@ -22,6 +22,8 @@
 
 ---
 
+**English** · [廣東話（繁體）](README.yue-HK.md) · [普通话（简体）](README.zh-CN.md)
+
 <h1 align="center">K-Bot</h1>
 <p align="center">Upload a circuit. Ask a question. See the working.</p>
 <p align="center"><a href="run.md">Setup guide</a> · <a href="#pipeline">Pipeline</a> · <a href="https://huggingface.co/Meghamsh111/KBOT-models">Models</a></p>
