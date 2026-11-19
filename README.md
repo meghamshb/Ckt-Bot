@@ -59,4 +59,3 @@ The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/KBOT-
 A fresh environment on the original Mac completed one known AC circuit through the browser in **55.8 seconds**. The answer matched an independent calculation. See the [reproduction record](provenance/HANDOFF_REPRODUCTION_20261119.json).
 
 Faint wires, crossings and misread labels can still produce the wrong circuit. One successful example does not establish accuracy on new circuits. A second physical machine has not been tested.
-
