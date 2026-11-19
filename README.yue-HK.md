@@ -22,9 +22,8 @@
 
 ---
 
-[English](README.md) · **廣東話（繁體）** · [普通话（简体）](README.zh-CN.md)
-
 <h1 align="center">K-Bot</h1>
+<p align="center"><a href="README.md">English</a> · <strong>廣東話（繁體）</strong> · <a href="README.zh-CN.md">普通话（简体）</a></p>
 <p align="center">上載電路圖，問條問題，睇清楚計算過程。</p>
 <p align="center"><a href="run.md">安裝指南</a> · <a href="#pipeline">處理流程</a> · <a href="https://huggingface.co/Meghamsh111/KBOT-models">模型</a></p>
 
