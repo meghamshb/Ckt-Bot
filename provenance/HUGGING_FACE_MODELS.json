@@ -27,12 +27,13 @@
   "anonymous_access_verified": true,
   "original_upload_revision": "e3879de97afb441ab9f5a16bcd57e17e9457a111",
   "scope": "Three current frozen checkpoints only; datasets, old candidates, environments, authentication and hosted model weights are excluded.",
-  "documentation_revision": "ee8dbe27b77a819ad409761d3f766ff51f6b2cfd",
+  "documentation_revision": "46bd1fab65ecfc4c7dfcb21f08ca9ee91c6b7b34",
   "documentation_languages": [
     "en",
     "yue-HK",
     "zh-CN"
   ],
   "language_navigation": "Same-page expandable sections",
-  "checkpoint_files_unchanged_after_documentation_update": true
+  "checkpoint_files_unchanged_after_documentation_update": true,
+  "same_page_language_controls_checked_on_hugging_face": true
 }
