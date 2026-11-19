@@ -94,6 +94,12 @@ def main():
     output.parent.mkdir(parents=True, exist_ok=True)
     shutil.copytree(source, output, ignore=shutil.ignore_patterns('.git', '__pycache__', '*.pyc',
                     'UI-RUNS', 'readiness-records', 'server-logs', '.venv', '.env'))
+    # The frozen pipeline opens its shared lock read-only; a fresh installation
+    # must provision it before the first upload rather than relying on an old run.
+    runtime_lock = Path(config['lock_file'])
+    runtime_lock.touch(exist_ok=True)
+    with runtime_lock.open('r'):
+        pass
     target_yolo = output / 'runtime' / config['detector']['weights']
     target_yolo.parent.mkdir(parents=True, exist_ok=True)
     target_yolo.symlink_to(paths['yolo'])
@@ -123,6 +129,7 @@ def main():
                'derived_CONFIG_FREEZE_sha256': digest(output / 'CONFIG_FREEZE.json'),
                'device': args.device, 'cli': metadata,
                'changed_runtime_files': ['runtime/config/pipeline.json', 'runtime/config/sam.json', 'CONFIG_FREEZE.json'],
+               'runtime_lock_file': str(runtime_lock),
                'model_inference': False, 'model_download': False,
                'warning': 'NEW PATHS, INTERPRETER AND DEPENDENCY MANIFEST. NOT THE ORIGINAL MAC REHEARSAL ENVIRONMENT.'}
     write(output / 'provenance/DERIVED_ENVIRONMENT.json', receipt)

@@ -8,7 +8,7 @@ The private GitHub repository contains the application. The three frozen model f
 
 The model archive is public for inspection; the project notice and third-party terms still apply. Public visibility does not make the project open source.
 
-The recorded demo ran on an Apple M4 Pro Mac with 24 GiB of memory. Its SAM configuration uses Apple's MPS accelerator. Another Mac is a new installation that needs checking; this guide does not claim that a clean machine has already been tested.
+This Mac setup targets **Apple Silicon and macOS 14 or later**, as required by the pinned PyTorch wheel. The recorded demo ran on an Apple M4 Pro Mac with 24 GiB of memory, using Apple's MPS accelerator for SAM. Another Mac is a new installation that needs checking; this guide does not claim that a clean machine has already been tested.
 
 You need:
 
@@ -16,8 +16,10 @@ You need:
 - Python 3.12 and the recorded packages. Install commands are below. The original interpreter was Python 3.12.14; a different build will be recorded as a derived local environment.
 - The approved YOLO checkpoint and both SAM checkpoints.
 - The two pinned source checkouts listed below.
-- ngspice on your command path. The demo used ngspice 47.
-- The official Codex CLI with your own managed ChatGPT login. The recorded CLI version was `codex-cli 0.169.0-alpha.11.1`.
+- Apple's command-line developer tools, including `/usr/bin/python3`, which the launchers use to locate the configured Python environment.
+- ngspice installed at `/opt/homebrew/bin/ngspice`. The frozen Mac adapter requires this path; the demo used ngspice 47.
+- Node.js and npm to install the pinned official Codex CLI, `codex-cli 0.169.0-alpha.11.1`.
+- Your own managed ChatGPT login with access to the configured hosted model, `gpt-6.1-terra`.
 - Internet access and access to the configured hosted model. Detection and segmentation are local; the language/vision calls are not offline.
 
 Do not copy someone else's login files or API keys. The current provider uses the official CLI login and does not need an API key pasted into this repository.
@@ -32,6 +34,12 @@ brew install python@3.12 ngspice git
 
 If Homebrew is missing, follow the installation instructions at [the official Homebrew website](https://brew.sh/), then run the command above. Do not install a second copy if you already have it.
 
+If Node.js or npm is missing, install them with:
+
+```sh
+brew install node
+```
+
 If macOS reports that command-line developer tools are missing, run this once and complete the macOS installation dialog:
 
 ```sh
@@ -39,6 +47,18 @@ xcode-select --install
 ```
 
 Homebrew may install a newer Python 3.12 patch or ngspice release than the recorded demo. Check the versions; this is a new local environment, not an identical original-machine restore.
+
+Check the required system paths before continuing:
+
+```sh
+/usr/bin/python3 --version
+python3.12 --version
+/opt/homebrew/bin/ngspice --version
+node --version
+npm --version
+```
+
+If `/usr/bin/python3` is missing, finish the developer-tools installation. If ngspice is installed elsewhere, stop and contact the maintainer: adding it to your command path does not satisfy the frozen adapter's absolute path. This guide does not cover Intel Macs.
 
 ## 1. Get the application
 
@@ -82,28 +102,32 @@ The pinned third-party source checkouts are:
 
 These are source checkouts, not the CircuitVision website. KBOT does not need you to start CircuitVision's web app.
 
-## 3. Check your software and sign in
+## 3. Install the pinned CLI and sign in
 
-The current pipeline needs a compatible official Codex CLI. If `codex` is on your command path, use `command -v codex` to find it. If you have the original Mac app installation, its bundled executable was at this path:
+Install the exact official CLI package into your private working folder. This keeps it separate from any other Codex installation and does not require the original Mac app:
 
 ```sh
-KBOT_CODEX="/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
+mkdir -p "$HOME/KBOT-PRIVATE/tools"
+npm install --prefix "$HOME/KBOT-PRIVATE/tools" --save-exact @openai/codex@0.169.0-alpha.11.1
+KBOT_CODEX="$HOME/KBOT-PRIVATE/tools/node_modules/.bin/codex"
 "$KBOT_CODEX" --version
-"$KBOT_CODEX" login status
-ngspice --version
 ```
 
-If your official executable is elsewhere, change only the `KBOT_CODEX` value to its actual path. If no compatible official build is available, stop and get the approved build from the maintainer. The setup helper checks required CLI options; a CLI with the same name may not support this frozen adapter.
+The version must report `codex-cli 0.169.0-alpha.11.1`. This exact package has been downloaded from the public npm registry and its version checked. That verifies CLI acquisition, not a successful circuit run. The setup helper also checks the frozen command-line options; do not substitute an untested CLI version.
 
-If login is required, run:
+Use a separate login folder for this installation. Keep the same Terminal window open for the remaining setup and startup commands:
 
 ```sh
-"$KBOT_CODEX" login
+export CODEX_HOME="$HOME/KBOT-PRIVATE/codex-home"
+mkdir -p "$CODEX_HOME"
+chmod 700 "$CODEX_HOME"
+"$KBOT_CODEX" login --device-auth
+"$KBOT_CODEX" login status
 ```
 
-Sign in with your own authorized account. The application expects a ChatGPT login. An API-key login is not the current configuration.
+Open the URL printed by the official CLI, enter its code and sign in with **your own authorized ChatGPT account**. The status must say `Logged in using ChatGPT`. Each teammate must sign in separately; do not copy the original machine's authentication or another person's login files. An API-key login is not the current configuration.
 
-The frozen model name is `gpt-6.1-terra`. Model access or capacity can change. A successful login check does not prove that a live model request will succeed.
+The frozen model name is `gpt-6.1-terra`. Your account must have access to it; installing the CLI does not grant access. Model access and capacity can change, and a successful login check does not prove that a live model request will succeed. If access is unavailable, stop and contact the maintainer rather than changing the model silently.
 
 ## 4. Prepare your private working folder
 
@@ -112,7 +136,7 @@ Keep your model files and run outputs outside the Git checkout. In the example b
 - The download command below puts all three frozen model files in `$HOME/KBOT-PRIVATE/models/`.
 - Put the pinned CircuitVision checkout in `$HOME/KBOT-PRIVATE/CircuitVision/`.
 - Put the pinned SAM2 checkout in `$HOME/KBOT-PRIVATE/sam2/`.
-- Keep the `KBOT_CODEX` value from step 3 available in the same Terminal window.
+- Keep the `KBOT_CODEX` value and exported `CODEX_HOME` from step 3 available in the same Terminal window.
 
 These commands obtain the two pinned source checkouts. Model weights and Python packages are downloaded separately below. Skip a clone if the correct checkout already exists:
 
@@ -136,7 +160,7 @@ SAM2_BUILD_CUDA=0 "$KBOT_PYTHON" -m pip install --no-build-isolation --no-deps -
 
 `requirements-macos-observed.txt` preserves the original package record. `requirements-macos.txt` has the same lines except the editable SAM2 URL, which is installed from the pinned local checkout by the next command.
 
-This install recipe has not been completed on a clean Mac here. If pip cannot find a wheel, reports a dependency conflict, or `pip check` fails, stop and give that error to the maintainer. Do not silently unpin packages. The recorded environment's dependency consistency has not been established by these documentation changes.
+This recipe passed in a fresh Python environment on the original Mac on 19 November 2026, including an uncached package download and `pip check`. A separate physical Mac has not been tested. If installation or `pip check` fails on your machine, stop and give that error to the maintainer; do not silently unpin packages.
 
 ### Download the three frozen checkpoints
 
@@ -173,7 +197,7 @@ Next prepare the private runtime copy:
   --device mps
 ```
 
-The output folder must be new and outside the Git checkout. The helper prepares a private runtime copy and records its local paths and environment. It does not download weights, install packages, train or run model inference. It checks model identities, pinned sources and CLI requirements. If an approved file or required software is missing, stop and get it from the maintainer.
+The output folder must be new and outside the Git checkout. The helper prepares a private runtime copy, creates the shared lock required by the first upload, and records its local paths and environment. It does not download weights, install packages, train or run model inference. It checks model identities, pinned sources and CLI requirements. If an approved file or required software is missing, stop and get it from the maintainer.
 
 The local configuration is a derived installation record, not a claim that a different Python build or machine is identical to the original demo. The original freeze records and pipeline/UI source stay preserved.
 
@@ -182,6 +206,7 @@ The local configuration is a derived installation record, not a claim that a dif
 After the helper succeeds, run the private copy:
 
 ```sh
+export CODEX_HOME="$HOME/KBOT-PRIVATE/codex-home"
 cd "$HOME/KBOT-PRIVATE/runtime"
 ./check-ready
 ./run-web --port 8766
@@ -211,15 +236,17 @@ The pipeline shows detections, the mask, connections, readings and the answer as
 
 ## Stopping and restarting
 
-Press Control-C in the server's Terminal to stop it. Start it again with `./run-web --port 8766` from the same folder. If another server already uses port 8766, close that server or ask the maintainer before starting a second instance.
+Press Control-C in the server's Terminal to stop it. To restart, repeat the startup commands above, including the `CODEX_HOME` export if you open a new Terminal window. If another server already uses port 8766, close that server or ask the maintainer before starting a second instance.
 
 Outputs are saved under `UI-RUNS/` and are excluded from Git. They can contain the uploaded circuit and model outputs; keep them private.
 
 ## What has and has not been checked
 
-The source package has been checked for file custody and basic syntax. The original demo has run end to end on selected examples. This does not establish general circuit accuracy or prove a fresh installation on another machine.
+On **19 November 2026**, the handoff was checked using a fresh GitHub clone, a new Python environment with uncached downloads, new pinned upstream checkouts, all three models downloaded anonymously from Hugging Face, the pinned CLI installed from npm, and a separate fresh ChatGPT login. Existing project models, Python environments and saved answers were not used.
 
-The GitHub repository includes the observed Python package record and install recipe. Model files are archived separately on Hugging Face; the original environment, authentication and a verified clean-machine install are not included. A compatible official CLI is still required. See `EXCLUSIONS.md` for the full list.
+One known AC circuit was uploaded through the actual browser interface. YOLO, SAM, graph assembly, visual reading, question interpretation, calculation, SPICE and the worked explanation completed in **55.76 seconds**. The result, $v_o(t)=3.83555\cos(4t-35.0249^\circ)\,\mathrm{V}$, matched an independent nodal calculation. The graph and rendered equations were visible, with no browser script errors. Setup now creates the missing shared lock file; pipeline and Web UI source were unchanged.
+
+This was a fresh environment on the existing Apple M4 Pro Mac, using its installed Python 3.12.14, ngspice 47, Node.js and macOS developer tools. It was **not a test on a second physical machine**, an offline run, or an unseen-circuit accuracy benchmark. Each teammate still needs private source access and their own hosted-model login and access. See [the reproduction record](provenance/HANDOFF_REPRODUCTION_20261119.json) and `EXCLUSIONS.md`.
 
 ## Optional Docker route
 

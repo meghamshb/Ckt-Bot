@@ -1,0 +1,164 @@
+{
+  "date": "2026-11-19",
+  "status": "ONE_KNOWN_CIRCUIT_END_TO_END_PASS",
+  "base_source_commit": "b9676e0d4b2e526563d75e8df5b8600ce570187b",
+  "source": "https://github.com/meghamshb/KBOT",
+  "setup_fix": "Provision the derived runtime shared lock before the first upload.",
+  "setup_helper_sha256": "5587475216e0a1fd9df5bd6f808384af147e950402c14deb3366d3a8fc378726",
+  "isolation": {
+    "source": "Fresh GitHub clone; reviewed setup-only lock fix applied.",
+    "packages": "New venv; public PyPI uncached download and pip check passed.",
+    "vendors": "Fresh GitHub clones at the pinned commits.",
+    "models": "Fresh anonymous Hugging Face download at 8e59f5f03b30cb02eeace43e5df904066a233f2b; all three sizes/SHA-256 verified.",
+    "cli": "Public npm @openai/codex@0.169.0-alpha.11.1 installed in isolated prefix.",
+    "authentication": "Separate initially unauthenticated CODEX_HOME; own official device login completed.",
+    "existing_project_models_environments_saved_results_reused": false,
+    "existing_system_prerequisites_reused": [
+      "Apple M4 Pro macOS host",
+      "Python 3.12.14",
+      "ngspice 47 at /opt/homebrew/bin/ngspice",
+      "Node.js/npm",
+      "Apple developer tools"
+    ],
+    "separate_physical_machine_tested": false
+  },
+  "pipeline_and_web_ui_frozen_files_verified": 113,
+  "backend_local_model_checks": {
+    "detector_components": 7,
+    "sam_mask_size": [
+      768,
+      269
+    ],
+    "graph_candidate_components": 7,
+    "graph_candidate_pins": 14
+  },
+  "web_run": {
+    "passed": true,
+    "run_id": "20261119-152329-13fecda2",
+    "status": "completed",
+    "answer_status": "answered",
+    "seconds": 55.76,
+    "quantity": {
+      "id": "vo",
+      "name": "v_o",
+      "unit": "V",
+      "reference_direction": "as_printed v_o; peak phasor",
+      "kind": "phasor",
+      "real": 3.140939597315436,
+      "imaginary": -2.2013422818791946,
+      "expression": null,
+      "magnitude": 3.835545514783152,
+      "phase_degrees": -35.02487327954136
+    },
+    "expected_from_independent_nodal_equation": {
+      "real": 3.140939597315436,
+      "imaginary": -2.2013422818791946
+    },
+    "absolute_error": 0,
+    "numerical_verification": {
+      "spice_status": "completed",
+      "crosscheck_status": "passed"
+    },
+    "explanation_status": "available",
+    "visible": {
+      "graph": true,
+      "answer": true,
+      "math": 27,
+      "worked_steps": 6
+    },
+    "browser_errors": [],
+    "pipeline_error": null,
+    "stages": [
+      {
+        "id": "input",
+        "label": "Original image",
+        "status": "ready"
+      },
+      {
+        "id": "detect",
+        "label": "YOLO detections",
+        "status": "ready",
+        "seconds": 2.9365689999995084
+      },
+      {
+        "id": "segment",
+        "label": "SAM foreground mask",
+        "status": "ready",
+        "seconds": 9.593035040999894
+      },
+      {
+        "id": "graph",
+        "label": "Initial pins and nets",
+        "status": "ready",
+        "seconds": 0.8868361249988084
+      },
+      {
+        "id": "vision",
+        "label": "Diagram reading",
+        "status": "ready",
+        "seconds": 15.855119583999112
+      },
+      {
+        "id": "assemble",
+        "label": "Finalized circuit graph",
+        "status": "ready",
+        "seconds": 0.031106833999729133
+      },
+      {
+        "id": "prepare",
+        "label": "Prepare exact linear state",
+        "status": "ready"
+      },
+      {
+        "id": "target",
+        "label": "Question interpretation",
+        "status": "ready"
+      },
+      {
+        "id": "calculate",
+        "label": "Exact calculation",
+        "status": "ready"
+      },
+      {
+        "id": "spice",
+        "label": "SPICE simulation",
+        "status": "ready",
+        "seconds": 0.12310683299983793
+      },
+      {
+        "id": "explain",
+        "label": "Worked solution",
+        "status": "ready",
+        "seconds": 18.38788412499889
+      },
+      {
+        "id": "answer",
+        "label": "Final answer",
+        "status": "ready"
+      }
+    ],
+    "scope": "One known reproduction circuit; not an unseen benchmark or accuracy estimate."
+  },
+  "independent_reference": {
+    "scope": "Independent hand-transcribed nodal equation from the input image; does not consume extracted circuit JSON.",
+    "convention": "peak phasor, cosine reference",
+    "source_voltage": {
+      "real": 0,
+      "imaginary": -16
+    },
+    "equation": "(Vo+j16)/(4-j3) + Vo + Vo/(6+j8) = 2",
+    "expected_voltage": {
+      "real": 3.140939597315436,
+      "imaginary": -2.2013422818791946,
+      "magnitude": 3.835545514783152,
+      "phase_degrees": -35.02487327954136
+    },
+    "angular_frequency_rad_per_second": 4
+  },
+  "limits": [
+    "One known reproduction example; no general accuracy or unseen-coverage claim.",
+    "Host software was preinstalled; no clean operating system or Docker validation.",
+    "Teammates require their own source access, login and configured hosted-model access."
+  ],
+  "credentials_included": false
+}
