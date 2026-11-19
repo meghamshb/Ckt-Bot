@@ -1,0 +1,15 @@
+#!/bin/sh
+# Explicit subscription inference: managed Codex CLI network access. Not offline.
+set -eu
+DEMO_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+DEMO_PYTHON=$(/usr/bin/python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["python"])' "$DEMO_ROOT/runtime/config/pipeline.json")
+export PYTHONDONTWRITEBYTECODE=1
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_DATASETS_OFFLINE=1
+export YOLO_OFFLINE=true YOLO_AUTOINSTALL=false UV_OFFLINE=1
+export PIP_NO_INDEX=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+# Never inherit the local-only bundle's deliberately broken proxy settings.
+unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
+export NO_PROXY=localhost,127.0.0.1,::1 no_proxy=localhost,127.0.0.1,::1
+# Detector/SAM weights remain local. Selected Codex provider strips API keys.
+# Official Codex CLI manages ChatGPT login and provider networking.
+exec "$DEMO_PYTHON" -B "$DEMO_ROOT/readiness.py" "$@"

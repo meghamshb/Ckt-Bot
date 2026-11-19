@@ -1,0 +1,76 @@
+{
+  "schema": "kbot.lean-pipeline/1",
+  "python": "/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-20261113/.venv/bin/python",
+  "endpoint": "http://127.0.0.1:11434",
+  "lock_file": "/Users/meghamshbalantrapu/.kbot-heavy-job.lock",
+  "detector": {
+    "class_map": {
+      "0": "resistor",
+      "1": "voltage_source",
+      "10": "dependent_voltage_source",
+      "11": "dependent_current_source",
+      "12": "impedance_block",
+      "13": "ideal_transformer",
+      "14": "transistor_bjt",
+      "15": "two_port_block",
+      "16": "meter",
+      "2": "current_source",
+      "3": "ground",
+      "4": "junction",
+      "5": "capacitor",
+      "6": "inductor",
+      "7": "diode",
+      "8": "op_amp",
+      "9": "switch"
+    },
+    "confidence": 0.5,
+    "device": "cpu",
+    "imgsz": 768,
+    "iou": 0.55,
+    "sha256": "3d05f8ede9c8aa25ab19261fad7df60a1a5fbd61dcd00f8312ee88122c254005",
+    "weights": "models/yolo26n-final50.pt",
+    "artifact_role": "preserved_original_current_checkpoint",
+    "training": "Preserved original checkpoint; same frozen refined runtime for baseline and single training candidate.",
+    "predict_kwargs": {
+      "imgsz": 768,
+      "conf": 0.5,
+      "iou": 0.55,
+      "device": "cpu",
+      "batch": 1,
+      "verbose": false
+    }
+  },
+  "sam": {
+    "lock": "config/sam.json",
+    "sha256": "e4806cce9573828c56fc16195205c668474ea570ee929e6dc60d1af0cb414fde"
+  },
+  "vision": {
+    "provider": "codex_cli",
+    "cli": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "model": "gpt-6.1-terra",
+    "reasoning_effort": "low",
+    "timeout": 240
+  },
+  "reasoning": {
+    "provider": "codex_cli",
+    "cli": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "model": "gpt-6.1-terra",
+    "reasoning_effort": "low",
+    "timeout": 240
+  },
+  "graph": {
+    "junction_convention": "continuous_ink"
+  },
+  "calculation": {
+    "algorithm": "exact_linear_tableau",
+    "library": "sympy",
+    "version": "1.14.0",
+    "scope": "linear DC / AC steady state; explicitly ideal linear op-amps; dependent sources"
+  },
+  "execution": {
+    "network_policy": "Managed Codex CLI using existing ChatGPT login/subscription. Local YOLO/SAM weights; no downloads.",
+    "model_override_environment": "KBOT_CODEX_MODEL",
+    "credential_source": "Official Codex CLI manages ChatGPT login; API key environment removed, private API key file unused.",
+    "fallback": "none"
+  }
+}

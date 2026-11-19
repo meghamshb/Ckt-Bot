@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+"""Run the local circuit pipeline on a demo case or a supplied image."""
+import argparse
+import datetime
+import html
+import json
+from pathlib import Path
+import subprocess
+import sys
+from zoneinfo import ZoneInfo
+
+
+def escaped(value):
+    if value is None:
+        return '—'
+    if isinstance(value, (dict, list)):
+        value = json.dumps(value, ensure_ascii=False)
+    return html.escape(str(value))
+
+
+def table(headers, rows):
+    return ('<table><thead><tr>'+''.join('<th>'+escaped(h)+'</th>' for h in headers)
+        +'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+escaped(c)+'</td>' for c in row)
+        +'</tr>' for row in rows)+'</tbody></table>')
+
+
+def detection_overlay(directory):
+    """Present exact saved YOLO boxes; never perform another inference."""
+    if not (directory/'source.png').exists() or not (directory/'detections.json').exists():
+        return
+    from PIL import Image, ImageDraw, ImageFont
+    data=json.loads((directory/'detections.json').read_text())
+    image=Image.open(directory/'source.png').convert('RGB')
+    draw=ImageDraw.Draw(image);font=ImageFont.load_default(size=14)
+    for row in data['components']+data['junctions']:
+        box=row['bbox'];color='#7c3aed' if row['type']=='junction' else '#1d4ed8'
+        draw.rectangle(box,outline=color,width=2)
+        text=f"{row['id']} {row['type']} {row['confidence']:.1%}"
+        bounds=draw.textbbox((0,0),text,font=font);width=bounds[2]-bounds[0]+8;height=bounds[3]-bounds[1]+8
+        x=max(0,min(box[0],image.width-width));y=max(0,box[1]-height)
+        draw.rectangle((x,y,x+width,y+height),fill=color)
+        draw.text((x+4,y+2-bounds[1]),text,font=font,fill='white')
+    image.save(directory/'detections-overlay.png')
+
+
+def render(output, rows, backup=False):
+    output=Path(output)
+    heading='BACKUP — saved outputs, not live' if backup else 'Current run'
+    parts=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Circuit demo</title>',
+        '<style>body{font:17px system-ui;max-width:1400px;margin:32px auto;padding:0 20px;color:#17252d}section{margin:36px 0;padding:20px;border:1px solid #ccd5d9;border-radius:10px}.images{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}img{width:100%}pre{white-space:pre-wrap;line-height:1.5}a{color:#175ab2}table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}th,td{border:1px solid #ccd5d9;padding:8px;text-align:left;vertical-align:top}th{background:#f2f5f7}.backup{padding:18px;background:#fff0bd;border:2px solid #997000}@media(max-width:850px){.images{grid-template-columns:1fr}section{overflow:auto}}</style>',
+        '<h1>Circuit demo</h1>','<h2'+(' class="backup"' if backup else '')+'>'+escaped(heading)+'</h2>',
+        '<p>Static stage report. Console output shows progress while each fresh run executes.</p>' if not backup else '<p>Previously saved artifacts. No inference is running for this backup report.</p>']
+    for row in rows:
+        case=row['case'];folder=case['id'];directory=output/folder
+        record=json.loads((directory/'run.json').read_text()) if (directory/'run.json').exists() else {}
+        detection_overlay(directory)
+        status=record.get('status',row.get('status','unknown'))
+        answer_status=record.get('answer_status')
+        parts+=['<section><h2>'+escaped(case['title'])+'</h2>',
+            '<p>'+escaped(case['question'])+'</p>',
+            '<p>Run status: <strong>'+escaped(status)+'</strong>'
+            +(' · Answer status: <strong>'+escaped(answer_status)+'</strong>' if answer_status else '')
+            +(' · Elapsed: '+escaped(f"{record['seconds']:.1f}")+' s' if 'seconds' in record else '')+'</p>']
+        images=[]
+        for name,label in [('source.png','Original input'),('detections-overlay.png','YOLO detections and confidence'),('circuit.png','Components, pins and connections')]:
+            if (directory/name).exists():images.append(f'<div><p>{label}</p><a href="{escaped(folder)}/{name}"><img src="{escaped(folder)}/{name}" alt="{label}"></a></div>')
+        parts+=['<div class="images">'+''.join(images)+'</div>']
+        if (directory/'circuit.json').exists():
+            circuit=json.loads((directory/'circuit.json').read_text());pins={p['id']:p for p in circuit['pins']}
+            components=[]
+            for c in circuit['components']:
+                connections=[]
+                for pid in c.get('pins',[]):
+                    pin=pins[pid]
+                    connections.append(pid+' [role: '+str(pin.get('role') or 'not specified')+'] → '+str(pin.get('net_id') or 'unresolved'))
+                components.append([c['id'],c['type'],c.get('value'),c.get('unit'),'; '.join(connections)])
+            parts+=['<h3>Read components and pin connections</h3>',table(['Component','Type','Read value','Read unit','Pin role → net'],components),
+                '<h3>Assembled nets</h3>',table(['Net','Ground','Connected pins'],[[n['id'],'yes' if n.get('ground') else 'no',', '.join(n['pins'])] for n in circuit['nets']])]
+            if circuit.get('electrical_issues'):
+                parts+=['<h3>Unresolved electrical issues</h3><pre>'+escaped(circuit['electrical_issues'])+'</pre>']
+        if (directory/'answer.md').exists():parts+=['<h3>Final answer</h3><pre>'+escaped((directory/'answer.md').read_text())+'</pre>']
+        elif row.get('error') or record.get('error'):parts+=['<pre>'+escaped(record.get('error') or row['error'])+'</pre>']
+        if record.get('stages'):
+            parts+=['<h3>Stage timings</h3>',table(['Stage','Seconds'],[[s['stage'],f"{s['seconds']:.2f}"] for s in record['stages']])]
+        links=[]
+        for name,label in [('detections.json','YOLO JSON'),('readings.json','Readings JSON'),('circuit.json','Circuit JSON'),('run.json','Run record'),('answer.json','Answer JSON'),('calculation.json','Calculation JSON')]:
+            if (directory/name).exists():links.append(f'<a href="{escaped(folder)}/{name}">{label}</a>')
+        if (output/(folder+'.log')).exists():links.append(f'<a href="{escaped(folder)}.log">Console log</a>')
+        parts+=['<p>'+' · '.join(links)+'</p></section>']
+    (output/'index.html').write_text('\n'.join(parts)+'\n</html>\n')
+
+
+def main():
+    root=Path(__file__).resolve().parent
+    cases=json.loads((root/'examples/demo/cases.json').read_text())
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--case',choices=['all']+[c['id'] for c in cases])
+    parser.add_argument('--image',type=Path)
+    parser.add_argument('--question')
+    parser.add_argument('--output',type=Path)
+    parser.add_argument('--list',action='store_true')
+    args=parser.parse_args()
+    if args.list:
+        for case in cases:print(case['id']+': '+case['title'])
+        return 0
+    if args.case and args.image:parser.error('Choose a demo case or an image')
+    if args.image:
+        if not args.question:parser.error('--image needs --question')
+        selected=[{'id':'custom','title':'Your circuit','question':args.question,'image':str(args.image.resolve())}]
+    elif args.case:
+        selected=cases if args.case=='all' else [c for c in cases if c['id']==args.case]
+    else:
+        if not sys.stdin.isatty():parser.error('Use --case all, a case ID, or --image with --question')
+        for i,c in enumerate(cases,1):print(f"{i}. {c['title']} ({c['id']})")
+        value=input('Choose a case number, or all: ').strip()
+        if value=='all':selected=cases
+        elif value.isdigit() and 1<=int(value)<=len(cases):selected=[cases[int(value)-1]]
+        else:parser.error('Unknown selection')
+    stamp=datetime.datetime.now(ZoneInfo('Asia/Hong_Kong')).strftime('%Y%m%d-%H%M%S-%f')
+    output=(args.output or root/'runs'/('demo-'+stamp)).resolve()
+    output.mkdir(parents=True,exist_ok=False)
+    rows=[];failed=False
+    for case in selected:
+        image=Path(case['image'])
+        if not image.is_absolute():image=root/image
+        command=[str(root/'kbot'),'--image',str(image),'--question',case['question'],'--output',str(output/case['id'])]
+        print('\n'+case['title']+' — running fresh image reading and solving',flush=True)
+        with (output/(case['id']+'.log')).open('w') as log:
+            process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+            for line in process.stdout:print(line,end='',flush=True);log.write(line);log.flush()
+            code=process.wait()
+        directory=output/case['id'];record=json.loads((directory/'run.json').read_text()) if (directory/'run.json').exists() else {}
+        status=record.get('answer_status') or record.get('status','failed')
+        rows.append({'case':case,'status':status,'error':record.get('error'),'exit_code':code})
+        failed|=code!=0 or status!='answered'
+        render(output,rows)
+        (output/'demo.json').write_text(json.dumps({'cases':rows},indent=2)+'\n')
+    print('\nDemo report: '+str(output/'index.html'))
+    return 1 if failed else 0
+
+
+if __name__=='__main__':raise SystemExit(main())

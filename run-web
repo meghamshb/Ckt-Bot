@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+DEMO_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+DEMO_PYTHON=$(/usr/bin/python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["python"])' "$DEMO_ROOT/runtime/config/pipeline.json")
+export PYTHONDONTWRITEBYTECODE=1
+exec "$DEMO_PYTHON" -B "$DEMO_ROOT/demo-web/server.py" "$@"

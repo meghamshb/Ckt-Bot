@@ -1,0 +1,50 @@
+{
+  "schema_version": "circuitvision.model-lock/1",
+  "vendor_root": "/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-vendor-20261113",
+  "vendor_commit": "fc5b775043b577668906b6d0bbb238a690a82965",
+  "sam2_root": "/Users/meghamshbalantrapu/Documents/Projects/kbot-sam2-vendor-20261113",
+  "sam2_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "artifacts": {
+    "base_checkpoint": {
+      "path": "/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-artifacts-20261113/sam2.1_hiera_large.pt",
+      "sha256": "2647878d5dfa5098f2f8649825738a9345572bae2d4350a2468587ece47dd318",
+      "bytes": 898083611
+    },
+    "finetuned_checkpoint": {
+      "path": "/Users/meghamshbalantrapu/Documents/Projects/kbot-circuitvision-artifacts-20261113/circuitvision_finetuned.pth",
+      "sha256": "ff219e3ea853bcd23fef7d22642c3c6341237e2a2a3f11c1f3898c8f48becd01",
+      "bytes": 900710020
+    },
+    "config": {
+      "path": "/Users/meghamshbalantrapu/Documents/Projects/kbot-sam2-vendor-20261113/sam2/configs/sam2.1/sam2.1_hiera_l.yaml",
+      "sha256": "1dbd6cb6dfebeaf588c7006ee222c6efbfa9049a7ad472a3cdfb2f5d919e8107"
+    }
+  },
+  "runtime": {
+    "device": "mps",
+    "mps_fraction": 0.35,
+    "torch_threads": 1,
+    "package_versions": {
+      "torch": "2.15.0",
+      "torchvision": "0.29.2",
+      "peft": "0.15.2",
+      "transformers": "4.51.3",
+      "hydra-core": "1.3.2",
+      "omegaconf": "2.3.1",
+      "numpy": "2.5.4",
+      "Pillow": "13.0.0",
+      "SAM-2": "1.0",
+      "accelerate": "1.6.0",
+      "safetensors": "0.5.3",
+      "tokenizers": "0.21.1",
+      "huggingface-hub": "0.30.2",
+      "iopath": "0.1.10"
+    }
+  },
+  "download_sources": {
+    "base_checkpoint": "https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt",
+    "finetuned_checkpoint": "https://drive.google.com/uc?id=1AI91ikS-wlu7Pl-FwK7lNHyBqczKiBLr"
+  },
+  "rights": "SourceApache2 and officialbaseApache2; fine-tunedweight/data rightsunverified, no redistribution recommendation",
+  "runtime_note": "New isolatedvenv reuses old read-only torchsitepackages via .pth; no existing environment modified; float32 noautocast"
+}

@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "K-Bot evidence circuit",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "image",
+    "components",
+    "pins",
+    "nets",
+    "arrows",
+    "labels",
+    "evidence",
+    "unresolved"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "kbot.circuit/1.0"
+    },
+    "status": {
+      "const": "best_effort_unverified"
+    },
+    "image": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "unresolved": {
+      "type": "array"
+    },
+    "arrows": {
+      "type": "array"
+    },
+    "labels": {
+      "type": "array"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "bbox": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "value": {},
+          "unit": {}
+        },
+        "required": [
+          "id",
+          "type",
+          "bbox",
+          "pins",
+          "value",
+          "unit"
+        ]
+      }
+    },
+    "pins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "component_id": {
+            "type": "string"
+          },
+          "role": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "terminal_px": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "anchor_px": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "net_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "component_id",
+          "role",
+          "terminal_px",
+          "anchor_px",
+          "net_id",
+          "evidence"
+        ]
+      }
+    },
+    "nets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ground": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "pins",
+          "ground",
+          "evidence"
+        ]
+      }
+    },
+    "voltage_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "positive_net_id",
+          "negative_net_id"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "positive_net_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "negative_net_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

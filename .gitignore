@@ -1,0 +1,23 @@
+# PRIVATE RUNTIME ARTIFACTS MUST STAY LOCAL
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.ckpt
+*.env
+.env*
+!*.env.example
+UI-RUNS/
+LIVE-RUNS/
+BACKUP-SAVED-OUTPUTS/
+server-logs/
+readiness-records/
+runtime/runs/
+runtime/models/*
+runtime/examples/demo/*.png
+runtime/examples/demo/*.jpg
+.DS_Store
