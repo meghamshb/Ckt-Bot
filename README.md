@@ -1,14 +1,16 @@
 > **DO NOT DISTRIBUTE: INTELLECTUAL PROPERTY OF HKU ECE**
 >
-> Copyright 2026. All rights reserved in project-owned material by its lawful rights holders.
+> **COPYRIGHT 2026. ALL RIGHTS RESERVED IN PROJECT-OWNED MATERIAL BY ITS LAWFUL RIGHTS HOLDERS.**
 >
-> This repository is confidential and provided only for authorized internal research and review. No license is granted to the public to use, copy, modify, distribute, publish, sublicense or commercialize project-owned material. Any such permission must be obtained in writing from the relevant rights holder.
+> **CONFIDENTIAL MATERIAL. AUTHORIZED INTERNAL RESEARCH AND REVIEW ONLY. NO PUBLIC LICENSE IS GRANTED TO USE, COPY, MODIFY, DISCLOSE, DISTRIBUTE, PUBLISH, SUBLICENSE OR COMMERCIALIZE PROJECT-OWNED MATERIAL. PRIOR WRITTEN PERMISSION FROM THE RELEVANT RIGHTS HOLDER IS REQUIRED.**
 >
-> The HKU ECE attribution is the project owner's designated notice. Ownership and authority remain subject to applicable law, HKU intellectual property policy and relevant agreements. This notice does not execute an assignment of rights.
+> **I WILL PURSUE LEGAL ACTION, INCLUDING A CIVIL LAWSUIT, AGAINST UNAUTHORIZED USE OR DISTRIBUTION OF PROJECT-OWNED MATERIAL WHERE I AM LEGALLY ENTITLED TO ENFORCE THOSE RIGHTS. AVAILABLE REMEDIES MAY INCLUDE AN INJUNCTION, DAMAGES AND LEGAL COSTS.**
 >
-> Third-party components, licenses and notices remain subject to their original terms. This notice does not claim ownership of those components or restrict rights granted under their licenses. Statutory exceptions and non-waivable rights remain unaffected.
+> **THE HKU ECE ATTRIBUTION IS THE PROJECT OWNER'S DESIGNATED NOTICE. OWNERSHIP AND AUTHORITY REMAIN SUBJECT TO APPLICABLE LAW, HKU INTELLECTUAL PROPERTY POLICY AND RELEVANT AGREEMENTS. THIS NOTICE DOES NOT EXECUTE AN ASSIGNMENT OF RIGHTS.**
 >
-> [Full license](LICENSE) · [Hong Kong Copyright Ordinance, Cap. 528](https://www.elegislation.gov.hk/hk/cap528) · [Copyright guidance](https://www.ipd.gov.hk/en/copyright/what-is-copyright/index.html) · [HKU intellectual property policy](https://www.rss.hku.hk/contracts/ipr)
+> **THIRD-PARTY COMPONENTS, LICENSES AND NOTICES REMAIN SUBJECT TO THEIR ORIGINAL TERMS. THIS NOTICE DOES NOT CLAIM OWNERSHIP OF THOSE COMPONENTS OR RESTRICT RIGHTS GRANTED UNDER THEIR LICENSES. STATUTORY EXCEPTIONS AND NON-WAIVABLE RIGHTS REMAIN UNAFFECTED.**
+>
+> **[FULL LICENSE](LICENSE) · [HONG KONG COPYRIGHT ORDINANCE, CAP. 528](https://www.elegislation.gov.hk/hk/cap528) · [COPYRIGHT GUIDANCE](https://www.ipd.gov.hk/en/copyright/what-is-copyright/index.html) · [HKU INTELLECTUAL PROPERTY POLICY](https://www.rss.hku.hk/contracts/ipr)**
 
 <h1 align="center">K-Bot</h1>
 <p align="center">Upload a circuit. Ask a question. See the working.</p>
