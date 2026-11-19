@@ -4,6 +4,8 @@ This is a source freeze, not a self-contained model or data release. The active 
 
 ## Model weights not committed
 
+The three current weights are excluded from GitHub and archived in the public [K-Bot Hugging Face repository](https://huggingface.co/Meghamsh111/KBOT-models), revision `8e59f5f03b30cb02eeace43e5df904066a233f2b`. All three remote sizes and SHA-256 hashes were verified, including anonymous access. See `run.md` for the pinned download command and `provenance/HUGGING_FACE_MODELS.json` for the receipt. Public visibility does not replace the project notice or upstream terms.
+
 | Artifact path (exact case required) | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `runtime/models/yolo26n-final50.pt` | 21344349 | `3d05f8ede9c8aa25ab19261fad7df60a1a5fbd61dcd00f8312ee88122c254005` |

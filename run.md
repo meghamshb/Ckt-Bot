@@ -1,10 +1,12 @@
 # Run KBOT
 
-This guide is for authorized internal users. Keep the repository, circuit images and model files private.
+This guide is for authorized internal users. Keep the source repository, circuit images, credentials and run outputs private. The model archive is hosted separately with public visibility.
 
 ## What you need before you start
 
-The GitHub repository contains the application, not the large model files or your login. Ask the project maintainer for the three approved model files below and access to the required software. A clone by itself cannot solve a circuit.
+The private GitHub repository contains the application. The three frozen model files are in the public [K-Bot model archive](https://huggingface.co/Meghamsh111/KBOT-models). This guide downloads an exact, checksum-verified revision. You still need access to the private source repository, the required software and your own hosted-model login.
+
+The model archive is public for inspection; the project notice and third-party terms still apply. Public visibility does not make the project open source.
 
 The recorded demo ran on an Apple M4 Pro Mac with 24 GiB of memory. Its SAM configuration uses Apple's MPS accelerator. Another Mac is a new installation that needs checking; this guide does not claim that a clean machine has already been tested.
 
@@ -51,9 +53,9 @@ cd KBOT
 
 Use your own GitHub access when asked. Do not make the repository public to get around an access error.
 
-## 2. Get the approved local files
+## 2. Identify the frozen model files
 
-Obtain these files from the project maintainer. Their expected identities are:
+The download command in step 4 obtains these exact files, approximately **1.82 GB** in total. No Hugging Face login is required. Their expected identities are:
 
 | File | Size in bytes | SHA-256 |
 | --- | ---: | --- |
@@ -61,7 +63,7 @@ Obtain these files from the project maintainer. Their expected identities are:
 | `sam2.1_hiera_large.pt` | 898083611 | `2647878d5dfa5098f2f8649825738a9345572bae2d4350a2468587ece47dd318` |
 | `circuitvision_finetuned.pth` | 900710020 | `ff219e3ea853bcd23fef7d22642c3c6341237e2a2a3f11c1f3898c8f48becd01` |
 
-Do not substitute a different model with the same filename. The SAM fine-tuned weight's redistribution rights have not been cleared; its presence in an upstream download link is not permission to redistribute it.
+Do not substitute a different model with the same filename. The project notice does not replace upstream model terms; the adapted SAM checkpoint's separate redistribution rights remain unverified.
 
 You can check a file in Terminal with:
 
@@ -107,12 +109,12 @@ The frozen model name is `gpt-6.1-terra`. Model access or capacity can change. A
 
 Keep your model files and run outputs outside the Git checkout. In the example below, the private files live under `$HOME/KBOT-PRIVATE/`. You may use another location, but the command must point to the real files.
 
-- Put all three approved model files in `$HOME/KBOT-PRIVATE/models/`.
+- The download command below puts all three frozen model files in `$HOME/KBOT-PRIVATE/models/`.
 - Put the pinned CircuitVision checkout in `$HOME/KBOT-PRIVATE/CircuitVision/`.
 - Put the pinned SAM2 checkout in `$HOME/KBOT-PRIVATE/sam2/`.
 - Keep the `KBOT_CODEX` value from step 3 available in the same Terminal window.
 
-These commands obtain only the two public source checkouts, not model weights or Python packages. Skip them if the maintainer already provided the correct checkouts:
+These commands obtain the two pinned source checkouts. Model weights and Python packages are downloaded separately below. Skip a clone if the correct checkout already exists:
 
 ```sh
 mkdir -p "$HOME/KBOT-PRIVATE"
@@ -135,6 +137,28 @@ SAM2_BUILD_CUDA=0 "$KBOT_PYTHON" -m pip install --no-build-isolation --no-deps -
 `requirements-macos-observed.txt` preserves the original package record. `requirements-macos.txt` has the same lines except the editable SAM2 URL, which is installed from the pinned local checkout by the next command.
 
 This install recipe has not been completed on a clean Mac here. If pip cannot find a wheel, reports a dependency conflict, or `pip check` fails, stop and give that error to the maintainer. Do not silently unpin packages. The recorded environment's dependency consistency has not been established by these documentation changes.
+
+### Download the three frozen checkpoints
+
+Run this in the same Terminal window after installing the packages above. It downloads the models and their notices from the verified Hugging Face revision into your private working folder. It does not train anything or change the source checkout.
+
+```sh
+"$KBOT_PYTHON" - <<'PY'
+from pathlib import Path
+from huggingface_hub import snapshot_download
+
+snapshot_download(
+    repo_id="Meghamsh111/KBOT-models",
+    revision="8e59f5f03b30cb02eeace43e5df904066a233f2b",
+    local_dir=str(Path.home() / "KBOT-PRIVATE" / "models"),
+    allow_patterns=["*.pt", "*.pth", "ARTIFACTS.json", "README.md", "LICENSE.md", "notices/*"],
+    token=False,
+)
+print("Model download complete. The setup helper below verifies all three SHA-256 hashes.")
+PY
+```
+
+If you already have all three matching files locally, skip the download. The next command checks their identities either way. [The model archive receipt](provenance/HUGGING_FACE_MODELS.json) records the verified revision, sizes and checksums; it contains no credentials.
 
 Next prepare the private runtime copy:
 
@@ -195,7 +219,7 @@ Outputs are saved under `UI-RUNS/` and are excluded from Git. They can contain t
 
 The source package has been checked for file custody and basic syntax. The original demo has run end to end on selected examples. This does not establish general circuit accuracy or prove a fresh installation on another machine.
 
-The repository includes the observed Python package record and install recipe, but not the model files, a packaged original environment or a verified clean-machine install. Approved artifacts and a compatible official CLI are still required. See `EXCLUSIONS.md` for the full list.
+The GitHub repository includes the observed Python package record and install recipe. Model files are archived separately on Hugging Face; the original environment, authentication and a verified clean-machine install are not included. A compatible official CLI is still required. See `EXCLUSIONS.md` for the full list.
 
 ## Optional Docker route
 

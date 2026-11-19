@@ -1,0 +1,30 @@
+{
+  "repo_id": "Meghamsh111/KBOT-models",
+  "private": false,
+  "revision": "8e59f5f03b30cb02eeace43e5df904066a233f2b",
+  "url": "https://huggingface.co/Meghamsh111/KBOT-models",
+  "verified_remote_checksums": true,
+  "files": [
+    {
+      "filename": "yolo26n-final50.pt",
+      "bytes": 21344349,
+      "sha256": "3d05f8ede9c8aa25ab19261fad7df60a1a5fbd61dcd00f8312ee88122c254005",
+      "role": "Project detector checkpoint"
+    },
+    {
+      "filename": "sam2.1_hiera_large.pt",
+      "bytes": 898083611,
+      "sha256": "2647878d5dfa5098f2f8649825738a9345572bae2d4350a2468587ece47dd318",
+      "role": "Upstream pretrained SAM2.1 base"
+    },
+    {
+      "filename": "circuitvision_finetuned.pth",
+      "bytes": 900710020,
+      "sha256": "ff219e3ea853bcd23fef7d22642c3c6341237e2a2a3f11c1f3898c8f48becd01",
+      "role": "Reused upstream adapted SAM checkpoint"
+    }
+  ],
+  "anonymous_access_verified": true,
+  "original_upload_revision": "e3879de97afb441ab9f5a16bcd57e17e9457a111",
+  "scope": "Three current frozen checkpoints only; datasets, old candidates, environments, authentication and hosted model weights are excluded."
+}

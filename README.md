@@ -4,18 +4,18 @@
 <p align="center">Circuit diagrams to connections, equations and worked answers.</p>
 <p align="center"><a href="run.md">Get started</a> · <a href="#pipeline">Explore the pipeline</a> · <a href="#example">Worked example</a> · <a href="EXCLUSIONS.md">Model files</a></p>
 
-K-Bot reads a circuit image and answers a question about it. The workflow combines component detection, wire tracing, contextual reading and electrical calculation. Its local web interface shows the intermediate outputs, so you can inspect the circuit that was extracted before accepting the answer.
+K-Bot turns a circuit image and a question into an inspectable circuit representation and a worked answer. The web interface shows component detections, wire traces, connections, readings and calculations as the analysis progresses.
+
+<a name="pipeline"></a>
 
 ## 🔎 A circuit, step by step
 
-The images below come from one saved K-Bot development run on Sadiku Figure 10.52. They show the actual outputs, rather than illustrations of what the pipeline should produce.
+These are actual outputs from a saved development run on **Sadiku Figure 10.52**, a known worked example.
 
 <table>
 <tr><th width="50%">Circuit image</th><th width="50%">Component detections</th></tr>
 <tr><td><img src="docs/images/ac-source.png" alt="Input AC circuit"></td><td><img src="docs/images/ac-detections.png" alt="K-Bot YOLO component detections"></td></tr>
 </table>
-
-<a name="pipeline"></a>
 
 ### ① Find the components
 
@@ -40,11 +40,11 @@ This representation determines the equations. Parallel components share the same
 
 ### ④ Read, calculate and explain
 
-- **Visual reading** associates values, units, polarity and pin roles with the circuit.
+- **The hosted vision-language model** reads values, units, polarity and pin roles in context and associates them with components.
 - **Question interpretation** binds the requested measurement to the graph.
 - **SymPy** solves the linear circuit equations.
 - **ngspice** provides a numerical cross-check on the extracted circuit.
-- **The explanation stage** presents the recorded calculation as a worked solution.
+- **The hosted explanation model** presents the recorded calculation as a worked solution.
 
 The interface exposes the readings, connections, calculation and answer. Intermediate records remain available for diagnosis.
 
@@ -86,7 +86,7 @@ Follow **[run.md](run.md)** for installation, model-file checks, login and start
 | Native Mac | Configuration, readiness and Web UI startup checked using the existing local dependencies. A clean-machine installation remains unverified. |
 | Docker | Experimental Linux CPU packaging. The image has not been built or validated end to end. |
 
-The web interface runs at **`http://127.0.0.1:8766/`**. Upload an image, enter the question and run the analysis. Model weights and authentication are supplied separately; see [EXCLUSIONS.md](EXCLUSIONS.md).
+The web interface runs at **`http://127.0.0.1:8766/`**. Upload an image, enter the question and run the analysis. The three frozen checkpoints are available in the **[model archive on Hugging Face](https://huggingface.co/Meghamsh111/KBOT-models)**; `run.md` downloads the verified revision. Authentication and local environments are supplied separately; see [EXCLUSIONS.md](EXCLUSIONS.md).
 
 ## 🧪 Research status
 
