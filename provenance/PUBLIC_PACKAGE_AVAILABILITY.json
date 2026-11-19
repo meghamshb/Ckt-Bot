@@ -1,0 +1,32 @@
+[
+  {
+    "name": "torch",
+    "version": "2.15.0",
+    "status": "AVAILABLE_ON_PUBLIC_PYPI",
+    "file_count": 28
+  },
+  {
+    "name": "torchvision",
+    "version": "0.29.2",
+    "status": "AVAILABLE_ON_PUBLIC_PYPI",
+    "file_count": 4
+  },
+  {
+    "name": "numpy",
+    "version": "2.5.4",
+    "status": "AVAILABLE_ON_PUBLIC_PYPI",
+    "file_count": 66
+  },
+  {
+    "name": "Pillow",
+    "version": "13.0.0",
+    "status": "AVAILABLE_ON_PUBLIC_PYPI",
+    "file_count": 83
+  },
+  {
+    "name": "ultralytics",
+    "version": "8.4.209",
+    "status": "AVAILABLE_ON_PUBLIC_PYPI",
+    "file_count": 2
+  }
+]
