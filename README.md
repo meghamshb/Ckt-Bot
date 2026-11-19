@@ -1,4 +1,14 @@
 > **DO NOT DISTRIBUTE: INTELLECTUAL PROPERTY OF HKU ECE**
+>
+> Copyright 2026. All rights reserved in project-owned material by its lawful rights holders.
+>
+> This repository is confidential and provided only for authorized internal research and review. No license is granted to the public to use, copy, modify, distribute, publish, sublicense or commercialize project-owned material. Any such permission must be obtained in writing from the relevant rights holder.
+>
+> The HKU ECE attribution is the project owner's designated notice. Ownership and authority remain subject to applicable law, HKU intellectual property policy and relevant agreements. This notice does not execute an assignment of rights.
+>
+> Third-party components, licenses and notices remain subject to their original terms. This notice does not claim ownership of those components or restrict rights granted under their licenses. Statutory exceptions and non-waivable rights remain unaffected.
+>
+> [Full license](LICENSE) · [Hong Kong Copyright Ordinance, Cap. 528](https://www.elegislation.gov.hk/hk/cap528) · [Copyright guidance](https://www.ipd.gov.hk/en/copyright/what-is-copyright/index.html) · [HKU intellectual property policy](https://www.rss.hku.hk/contracts/ipr)
 
 <h1 align="center">K-Bot</h1>
 <p align="center">Upload a circuit. Ask a question. See the working.</p>
@@ -50,6 +60,3 @@ A fresh environment on the original Mac completed one known AC circuit through t
 
 Faint wires, crossings and misread labels can still produce the wrong circuit. One successful example does not establish accuracy on new circuits. A second physical machine has not been tested.
 
-## Access and ownership
-
-This is a private research project. Project-owned material must not be distributed without authorization. Third-party software, models and diagrams retain their own terms. See [LICENSE](LICENSE) for the ownership notice and legal references.
