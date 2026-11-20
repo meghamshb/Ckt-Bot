@@ -136,7 +136,7 @@ If port 8766 is occupied, use `./run-web --port 8768` and open that port instead
 
 ## What is included
 
-GitHub contains the application, setup commands and selected example images. Setup downloads only the three required model checkpoints. It does not download training datasets. The optional [private data archive](https://huggingface.co/datasets/Meghamsh111/Ckt-Bot-data) is separate and is not needed to run the application. Local environments, login files and run outputs stay outside GitHub. New outputs are saved under the runtime's `UI-RUNS/` folder.
+GitHub contains the application, setup commands and selected example images. Models, training data, local environments, login files and run outputs are kept separately. New outputs are saved under the runtime's `UI-RUNS/` folder.
 
 A fresh environment on the original Mac completed one known circuit in **55.8 seconds**, with an independently checked answer. A second physical machine has not been tested. See the [verification record](provenance/HANDOFF_REPRODUCTION_20261119.json).
 

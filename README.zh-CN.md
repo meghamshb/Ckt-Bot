@@ -92,7 +92,7 @@ The panels are rendered from [HTML and CSS](docs/visuals/index.html), using the 
 
 Follow **[run.md](run.md)** to install the software, download the models, sign in and start the web interface. Each teammate needs their own hosted-model login and access.
 
-The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models). Training data is kept separately in a private [data archive](https://huggingface.co/datasets/Meghamsh111/Ckt-Bot-data) and is not needed or downloaded for normal setup. See [run.md](run.md#what-is-included) for files kept outside GitHub. Docker remains experimental and unverified.
+The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models). See [run.md](run.md#what-is-included) for files kept outside GitHub. Docker remains experimental and unverified.
 
 ## Current status
 
@@ -170,7 +170,7 @@ Ckt-Bot 讀取電路圖，並提供有計算步驟嘅答案。網頁介面會逐
 
 跟住 **[run.md](run.md)** 安裝軟件、下載模型、登入同啟動網頁介面。每位團隊成員都需要用自己嘅雲端模型帳戶登入，並有相應存取權限。
 
-模型存放喺 [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models)。訓練數據另外存放喺私人[數據庫](https://huggingface.co/datasets/Meghamsh111/Ckt-Bot-data)；一般安裝同執行唔需要亦唔會下載訓練數據。邊啲檔案冇放入 GitHub，可以睇 [run.md](run.md#what-is-included)。Docker 仍然係實驗性方案，未經驗證。
+模型存放喺 [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models)。邊啲檔案冇放入 GitHub，可以睇 [run.md](run.md#what-is-included)。Docker 仍然係實驗性方案，未經驗證。
 
 ## 目前狀態
 
@@ -224,7 +224,7 @@ Ckt-Bot 读取电路图并给出带有解题步骤的答案。网页会展示各
 
 按照 **[run.md](run.md)** 安装软件、下载模型、登录并启动网页。每位团队成员都需要自己的托管模型登录账号及访问权限。
 
-模型存放在 [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models)。训练数据单独存放在私有[数据仓库](https://huggingface.co/datasets/Meghamsh111/Ckt-Bot-data)；正常安装和运行不需要，也不会下载训练数据。未包含在 GitHub 仓库中的文件见 [run.md](run.md#what-is-included)。Docker 仍处于实验阶段，尚未验证。
+模型存放在 [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models)。未包含在 GitHub 仓库中的文件见 [run.md](run.md#what-is-included)。Docker 仍处于实验阶段，尚未验证。
 
 ## 当前状态
 
