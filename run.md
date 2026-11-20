@@ -123,7 +123,7 @@ For the known example, upload `docs/images/ac-source.png` from the source reposi
 
 ## Stop or restart
 
-Press **Control-C** to stop. In a new Terminal window, restart with:
+Press **Control-C** to stop. In a new Terminal window, restart with the commands below. If you installed earlier, use the private folder chosen during that setup.
 
 ```sh
 export CODEX_HOME="$HOME/CKT-BOT-PRIVATE/codex-home"
