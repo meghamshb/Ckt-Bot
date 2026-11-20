@@ -21,3 +21,19 @@ runtime/models/*
 runtime/examples/demo/*.png
 runtime/examples/demo/*.jpg
 .DS_Store
+
+# Optional data, archives and local tooling
+/data/
+/datasets/
+/training-data/
+/models/
+/backups/
+/archives/
+/cache/
+/.cache/
+node_modules/
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
