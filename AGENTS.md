@@ -1,6 +1,6 @@
 # Agent setup
 
-When the user says **setup**, install and start K-Bot by following [run.md](run.md). Run the commands yourself using your terminal tools. Ask the user only for sign-in, required permissions, or a blocking error you cannot resolve.
+When the user says **setup**, install and start Ckt-Bot by following [run.md](run.md). Run the commands yourself using your terminal tools. Ask the user only for sign-in, required permissions, or a blocking error you cannot resolve.
 
 - Check Apple Silicon, macOS 14 or later, disk space and the required system tools first.
 - Use the pinned package versions, source commits, model revision and CLI version in `run.md`.

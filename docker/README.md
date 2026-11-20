@@ -7,7 +7,7 @@ You need Docker, the three downloaded models, the two pinned source clones from 
 ## Build
 
 ```sh
-docker build -t kbot:frozen-cpu-experimental .
+docker build -t ckt-bot:frozen-cpu-experimental .
 ```
 
 ## Sign in
@@ -19,7 +19,7 @@ docker run --rm -it \
   --mount type=bind,source="$KBOT_LINUX_CODEX",target=/opt/codex,readonly \
   --mount type=volume,source=kbot-codex-auth,target=/home/kbot/.codex \
   --entrypoint /opt/codex/codex \
-  kbot:frozen-cpu-experimental login --device-auth
+  ckt-bot:frozen-cpu-experimental login --device-auth
 ```
 
 ## Run
@@ -34,7 +34,7 @@ Set these variables to full host paths:
 Use full source clones with their own `.git` directories.
 
 ```sh
-docker run --rm --name kbot-demo \
+docker run --rm --name ckt-bot-demo \
   -p 127.0.0.1:8766:8766 \
   --mount type=bind,source="$KBOT_MODELS",target=/models,readonly \
   --mount type=bind,source="$KBOT_VENDOR",target=/vendor/circuitvision,readonly \
@@ -42,9 +42,9 @@ docker run --rm --name kbot-demo \
   --mount type=bind,source="$KBOT_LINUX_CODEX",target=/opt/codex,readonly \
   --mount type=volume,source=kbot-codex-auth,target=/home/kbot/.codex \
   --mount type=volume,source=kbot-private-runtime,target=/state \
-  kbot:frozen-cpu-experimental
+  ckt-bot:frozen-cpu-experimental
 ```
 
-Open **http://127.0.0.1:8766/**. Stop with `docker stop kbot-demo`. Private outputs and login remain in the Docker volumes.
+Open **http://127.0.0.1:8766/**. Stop with `docker stop ckt-bot-demo`. Private outputs and login remain in the Docker volumes.
 
 The container uses CPU rather than Apple's MPS. It needs network access and your own hosted-model access. No model weights or credentials are built into the image. Use a new state volume after changing source or dependencies, and verify a real circuit before relying on this route.

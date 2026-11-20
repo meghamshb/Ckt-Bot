@@ -85,7 +85,7 @@ def _native(vendor_root):
 
 
 def adapt_components(components,image_size):
-    """Accept vendor dictionaries or K-Bot id/type/bbox; retain stable identity."""
+    """Accept vendor dictionaries or Ckt-Bot id/type/bbox; retain stable identity."""
     width,height=image_size;boxes=[];mapping=[];seen=set()
     for component in components:
         raw='class' in component and all(k in component for k in ('xmin','ymin','xmax','ymax'))

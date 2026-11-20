@@ -657,7 +657,7 @@ def main():
     args = parser.parse_args()
     app = Application()
     server = make_server(app, args.port)
-    print(f"K-Bot live demo: http://127.0.0.1:{server.server_port}", flush=True)
+    print(f"Ckt-Bot live demo: http://127.0.0.1:{server.server_port}", flush=True)
     print("New images invoke the configured pipeline. Saved rehearsals are explicitly labelled.", flush=True)
     try:
         server.serve_forever()

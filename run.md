@@ -1,6 +1,6 @@
-# Run K-Bot
+# Run Ckt-Bot
 
-For Apple Silicon Macs with macOS 14 or later. You need internet access, access to this private repository, and your own ChatGPT login with access to `gpt-6.1-terra`. The tested Mac has 24 GB of memory.
+For Apple Silicon Macs with macOS 14 or later. You need internet access, access to this repository, and your own ChatGPT login with access to `gpt-6.1-terra`. The tested Mac has 24 GB of memory.
 
 To let an agent handle this, open the repository and say **setup**. Browser sign-in still needs your input.
 
@@ -31,12 +31,12 @@ Skip the clone if you already have this repository. Keep the same Terminal windo
 ```sh
 mkdir -p "$HOME/Projects"
 cd "$HOME/Projects"
-git clone https://github.com/meghamshb/KBOT.git
-cd KBOT
+git clone https://github.com/meghamshb/Ckt-Bot.git
+cd Ckt-Bot
 
-KBOT_PRIVATE="$HOME/KBOT-PRIVATE"
-KBOT_PYTHON="$KBOT_PRIVATE/.venv/bin/python"
-mkdir -p "$KBOT_PRIVATE"
+CKT_BOT_PRIVATE="$HOME/CKT-BOT-PRIVATE"
+CKT_BOT_PYTHON="$CKT_BOT_PRIVATE/.venv/bin/python"
+mkdir -p "$CKT_BOT_PRIVATE"
 ```
 
 ## 3. Install the Python packages
@@ -44,15 +44,15 @@ mkdir -p "$KBOT_PRIVATE"
 These two source checkouts are needed by SAM. Skip a clone only if the matching checkout already exists.
 
 ```sh
-git clone https://github.com/JKc66/CircuitVision.git "$KBOT_PRIVATE/CircuitVision"
-git -C "$KBOT_PRIVATE/CircuitVision" checkout --detach fc5b775043b577668906b6d0bbb238a690a82965
-git clone https://github.com/facebookresearch/sam2.git "$KBOT_PRIVATE/sam2"
-git -C "$KBOT_PRIVATE/sam2" checkout --detach 2b90b9f5ceec907a1c18123530e92e794ad901a4
+git clone https://github.com/JKc66/CircuitVision.git "$CKT_BOT_PRIVATE/CircuitVision"
+git -C "$CKT_BOT_PRIVATE/CircuitVision" checkout --detach fc5b775043b577668906b6d0bbb238a690a82965
+git clone https://github.com/facebookresearch/sam2.git "$CKT_BOT_PRIVATE/sam2"
+git -C "$CKT_BOT_PRIVATE/sam2" checkout --detach 2b90b9f5ceec907a1c18123530e92e794ad901a4
 
-python3.12 -m venv "$KBOT_PRIVATE/.venv"
-"$KBOT_PYTHON" -m pip install -r requirements-macos.txt
-SAM2_BUILD_CUDA=0 "$KBOT_PYTHON" -m pip install --no-build-isolation --no-deps -e "$KBOT_PRIVATE/sam2"
-"$KBOT_PYTHON" -m pip check
+python3.12 -m venv "$CKT_BOT_PRIVATE/.venv"
+"$CKT_BOT_PYTHON" -m pip install -r requirements-macos.txt
+SAM2_BUILD_CUDA=0 "$CKT_BOT_PYTHON" -m pip install --no-build-isolation --no-deps -e "$CKT_BOT_PRIVATE/sam2"
+"$CKT_BOT_PYTHON" -m pip check
 ```
 
 The last command must report `No broken requirements found`.
@@ -60,32 +60,32 @@ The last command must report `No broken requirements found`.
 ## 4. Install the CLI and sign in
 
 ```sh
-npm install --prefix "$KBOT_PRIVATE/tools" --save-exact @openai/codex@0.169.0-alpha.11.1
-KBOT_CODEX="$KBOT_PRIVATE/tools/node_modules/.bin/codex"
-"$KBOT_CODEX" --version
+npm install --prefix "$CKT_BOT_PRIVATE/tools" --save-exact @openai/codex@0.169.0-alpha.11.1
+CKT_BOT_CODEX="$CKT_BOT_PRIVATE/tools/node_modules/.bin/codex"
+"$CKT_BOT_CODEX" --version
 
-export CODEX_HOME="$KBOT_PRIVATE/codex-home"
+export CODEX_HOME="$CKT_BOT_PRIVATE/codex-home"
 mkdir -p "$CODEX_HOME"
 chmod 700 "$CODEX_HOME"
-"$KBOT_CODEX" login --device-auth
-"$KBOT_CODEX" login status
+"$CKT_BOT_CODEX" login --device-auth
+"$CKT_BOT_CODEX" login status
 ```
 
 Open the printed link, enter the code and sign in with your own account. The status must say `Logged in using ChatGPT`. Do not copy another person's login files. An API key is not used.
 
 ## 5. Download the models
 
-This downloads all three models, about 1.82 GB, from the pinned [Hugging Face archive](https://huggingface.co/Meghamsh111/KBOT-models). No Hugging Face login is needed.
+This downloads all three models, about 1.82 GB, from the pinned [Hugging Face archive](https://huggingface.co/Meghamsh111/Ckt-Bot-models). No Hugging Face login is needed.
 
 ```sh
-KBOT_MODELS="$KBOT_PRIVATE/models" "$KBOT_PYTHON" - <<'PY'
+CKT_BOT_MODELS="$CKT_BOT_PRIVATE/models" "$CKT_BOT_PYTHON" - <<'PY'
 import os
 from huggingface_hub import snapshot_download
 
 snapshot_download(
-    repo_id="Meghamsh111/KBOT-models",
+    repo_id="Meghamsh111/Ckt-Bot-models",
     revision="8e59f5f03b30cb02eeace43e5df904066a233f2b",
-    local_dir=os.environ["KBOT_MODELS"],
+    local_dir=os.environ["CKT_BOT_MODELS"],
     allow_patterns=["*.pt", "*.pth", "ARTIFACTS.json", "README.md", "LICENSE.md", "notices/*"],
     token=False,
 )
@@ -96,19 +96,19 @@ The next step checks every model's checksum. The project notice and upstream mod
 
 ## 6. Configure and start
 
-Run from the KBOT source folder:
+Run from the Ckt-Bot source folder:
 
 ```sh
-"$KBOT_PYTHON" scripts/configure-local.py \
-  --output "$KBOT_PRIVATE/runtime" \
-  --yolo "$KBOT_PRIVATE/models/yolo26n-final50.pt" \
-  --sam-artifacts "$KBOT_PRIVATE/models" \
-  --vendor-root "$KBOT_PRIVATE/CircuitVision" \
-  --sam2-root "$KBOT_PRIVATE/sam2" \
-  --codex "$KBOT_CODEX" \
+"$CKT_BOT_PYTHON" scripts/configure-local.py \
+  --output "$CKT_BOT_PRIVATE/runtime" \
+  --yolo "$CKT_BOT_PRIVATE/models/yolo26n-final50.pt" \
+  --sam-artifacts "$CKT_BOT_PRIVATE/models" \
+  --vendor-root "$CKT_BOT_PRIVATE/CircuitVision" \
+  --sam2-root "$CKT_BOT_PRIVATE/sam2" \
+  --codex "$CKT_BOT_CODEX" \
   --device mps
 
-cd "$KBOT_PRIVATE/runtime"
+cd "$CKT_BOT_PRIVATE/runtime"
 ./check-ready
 ./run-web --port 8766
 ```
@@ -126,8 +126,8 @@ For the known example, upload `docs/images/ac-source.png` from the source reposi
 Press **Control-C** to stop. In a new Terminal window, restart with:
 
 ```sh
-export CODEX_HOME="$HOME/KBOT-PRIVATE/codex-home"
-cd "$HOME/KBOT-PRIVATE/runtime"
+export CODEX_HOME="$HOME/CKT-BOT-PRIVATE/codex-home"
+cd "$HOME/CKT-BOT-PRIVATE/runtime"
 ./check-ready
 ./run-web --port 8766
 ```

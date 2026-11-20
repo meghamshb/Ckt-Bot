@@ -57,7 +57,7 @@ class _Compiler:
         self.mode = self.circuit.mode
         if self.mode not in ('dc', 'ac'):
             raise CalculationError('SPICE integration supports DC or single-frequency AC only')
-        self.lines = ['Observed circuit compiled by K-Bot; ngspice independent numerical run']
+        self.lines = ['Observed circuit compiled by Ckt-Bot; ngspice independent numerical run']
         self.mapping = {'nodes': {}, 'component_probes': {}, 'gauges': [], 'ideal_opamps': {}}
         self.symbols = {}; self.symbol_text = {}; self.orientations = {}; self.references = {}
         self._nodes()

@@ -9,7 +9,7 @@
     "check-ready": "19e95cdb7b77d323df2805c85c5198475bb8964b28f6fddb0739db76871d4f2b",
     "demo-web/app.js": "b4ed6973131cc879fadb2e09125023cf75d36ab8fca0110181533ea094c258ed",
     "demo-web/index.html": "9a1dbe5f69815f48ef4c1c4916f219b71871e09292e5a6f36cffeca1de21ed84",
-    "demo-web/server.py": "a84dd2690bb6256032c63d9a65f0595daee60bca40516ffc6b280b485d722c45",
+    "demo-web/server.py": "b041fb0e3ccfae0fb8949f97167cad6b67dc7bc37817c4528e94250f72e7a75b",
     "demo-web/style.css": "40bdc516ce5405d883fa0672ca3d74de7d998ca9c9f6c3c31eaf51839fa3c1b3",
     "demo-web/vendor/katex/LICENSE": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
     "demo-web/vendor/katex/fonts/KaTeX_AMS-Regular.ttf": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13",
@@ -85,7 +85,7 @@
     "runtime/kbot": "3d04ff56a9804e91ec8c411b3d6fbbe16120fb390aa7666606f01e5a89406fb8",
     "runtime/src/kbot_pipeline/__init__.py": "4250092f11571c4bc28cd8c0e4f63e98da11204dab08b3f7119899a6dea08802",
     "runtime/src/kbot_pipeline/__main__.py": "e89daf9f6c8dea658d6bcdd1e2e89cf39dbed5dd8a51847f070fd1b6f6f2deba",
-    "runtime/src/kbot_pipeline/_graph/__init__.py": "869b5105ddf8e0bdd078b8755f451d265b8091fd523cf6290ac7a913b92bc2fb",
+    "runtime/src/kbot_pipeline/_graph/__init__.py": "4cbee86ed02d8f5dc263b909a94cfbbdef6fd65cb7f727950cbcebe96e91ded8",
     "runtime/src/kbot_pipeline/_graph/_topology_bridges.py": "850e3da1ff608fabe4075835669e65a210c7aafd06f5586e28e514604b5bb179",
     "runtime/src/kbot_pipeline/_graph/_topology_geometry.py": "39b23ac88b9d1f6bd847d50423ee16ea62acaa84aa66b117ad458f980f2c5a40",
     "runtime/src/kbot_pipeline/_graph/_topology_observers.py": "964f25c57afe27678a1355961b68195d4fa5e47f3a1b9709edfc010d14a50b66",
@@ -99,22 +99,22 @@
     "runtime/src/kbot_pipeline/_graph/source_directions.py": "3794187c26c59b300df2dd18e1113dabc7a1bf8909ae207947e92e4406b22e2c",
     "runtime/src/kbot_pipeline/_graph/stroke_scene.py": "0dd583fd543ae831bd18bac15d41ba5da34868dfd1cf9dbe667b602cfd96457a",
     "runtime/src/kbot_pipeline/_graph/symbol_identity.py": "dba30ca10172cdbdba23cccd4b24c1ed62505d00e351bd5266d66433dfa884f8",
-    "runtime/src/kbot_pipeline/_graph/topology.py": "6af52899c3105dfbe7d9a53f6b8b389fa55ff0081d7507077aab5fde510f6822",
+    "runtime/src/kbot_pipeline/_graph/topology.py": "ebde7a6525fd32407bccacb44840d7ee13ca8ed4d4c1406d38bc921501b3037a",
     "runtime/src/kbot_pipeline/_graph/wire_contacts.py": "68170cae6e4a14e7b108bff4f683887d538eef1a8b758d2b94161984a07fa366",
     "runtime/src/kbot_pipeline/_graph/wire_junctions.py": "0909854bd47fa228c5463cd56fdb86468ef22770cb15fb386ae715cf28f409f9",
     "runtime/src/kbot_pipeline/_graph/wire_terminations.py": "0275e94d56b69ecfc5f3cfe855c9650656b8a3bdbd2b1a2f66e4c4b2816bcd7a",
     "runtime/src/kbot_pipeline/_sam_backend.py": "641a7f45b52e67f2a2f6cf73fad7c1598e84134d8fd8514deb638c9cfd8d4337",
-    "runtime/src/kbot_pipeline/circuit.schema.json": "4cb715122572ed8c499b04ba2da65546a98d0239abb69d3a8665378919fab10c",
-    "runtime/src/kbot_pipeline/circuitvision_native.py": "143d382167398c7d0ed44cf6f81aef10e6d61b4061956ad22f25dbd85f1245a3",
+    "runtime/src/kbot_pipeline/circuit.schema.json": "bcd01e279335cf83ed9d4785a7332139cb7f649f58c2b075231f0a9c0ec9cea6",
+    "runtime/src/kbot_pipeline/circuitvision_native.py": "46267b23e3f93b9370b1e6241738334cecc4d2af3e3243cc75bfaef814db2779",
     "runtime/src/kbot_pipeline/codex_backend.py": "6fccc231c5dd4d1f9f44278aa9477a8c01d67728ebbb8dc9a1aa6513efe77721",
     "runtime/src/kbot_pipeline/contract_base.py": "bb2a7c647afaf9f1f0b0046514420e83df78f557736d484717aeadcda3bc2f78",
-    "runtime/src/kbot_pipeline/graph.py": "f087b6d5329e959d33afabfc532ff3455979067acc43e695e2330ef09a22ef94",
+    "runtime/src/kbot_pipeline/graph.py": "610d9b689b0f016b9592004b55b81c0e941716f854003e16e22f36e32a05879e",
     "runtime/src/kbot_pipeline/io.py": "cd8d5af8f15fd9689392eb2ed36d276ef2d727c9a3680f5ffe10a5edad27f563",
     "runtime/src/kbot_pipeline/linear.py": "b3ed75e02a3939b0452817f9ec08177176add9c3c9aeb2a66af01f712932ab38",
     "runtime/src/kbot_pipeline/measurements.py": "47fcfc77c3dce2367c0227ecac43db0b66dc5ac68f922ffa10a843249ceb5995",
     "runtime/src/kbot_pipeline/openai_backend.py": "4e44120d1713d944c2592b410c938d89c4dd945b72a67ddead9a0221602bc1ab",
     "runtime/src/kbot_pipeline/reasoning.py": "c6a860f54772310bb35f98db5a8275f1e55ea651475e6c40aa3f970df308c723",
-    "runtime/src/kbot_pipeline/spice.py": "1f232c64f9a0b01c846ec7ee563d4669b3246e9e0df26a844a03e2cde55bd365",
+    "runtime/src/kbot_pipeline/spice.py": "ef5ed004438b87d0415ee38edb868318b7398a67a5e5ca850948d95b6efabb8a",
     "runtime/src/kbot_pipeline/views.py": "071b20ab96ee26263638b4ac5cceba22edea7ffd2f52926b10beab23eedd106a",
     "runtime/src/kbot_pipeline/vision.py": "034c752e4459db629c23faef4b186ea52cde040779e6d1d9b8e2b20f70a9af1d",
     "runtime/src/kbot_pipeline/voltage_pairs.py": "0088770668f494911151168a48c966ef1e27da02c1360a80fe6448f776382dd2",
@@ -309,5 +309,48 @@
   "development_revision": "user-selected-frozen-topology-20261118",
   "deployment_source_freeze_sha256": "7a5c7ef88899759e324ef0acf70de59ce5db3c599339211a58b94777ced0a7a2",
   "parent_runtime_id": "demo-classic-clean-20261118-v4",
-  "packaging_note": "SOURCE-ONLY ARCHIVE. TEXTBOOK SAMPLES REMOVED; CASE MANIFEST EMPTY. WEIGHTS REMAIN EXTERNAL AND REQUIRED. ACTIVE PIPELINE AND UI CODE UNCHANGED."
+  "packaging_note": "SOURCE-ONLY ARCHIVE. TEXTBOOK SAMPLES REMOVED; CASE MANIFEST EMPTY. WEIGHTS REMAIN EXTERNAL AND REQUIRED. ACTIVE PIPELINE AND UI CODE UNCHANGED.",
+  "branding_update": {
+    "date": "2026-11-20",
+    "project_name": "Ckt-Bot",
+    "base_commit": "1379f0d80893612db7ec5bf2fc96c82bf6314583",
+    "scope": "Project names, links, labels and schema title only. Electrical behavior and model weights unchanged. Historical run artifacts retain their original titles.",
+    "frozen_files": [
+      {
+        "file": "demo-web/server.py",
+        "previous_sha256": "a84dd2690bb6256032c63d9a65f0595daee60bca40516ffc6b280b485d722c45",
+        "sha256": "b041fb0e3ccfae0fb8949f97167cad6b67dc7bc37817c4528e94250f72e7a75b"
+      },
+      {
+        "file": "runtime/src/kbot_pipeline/_graph/__init__.py",
+        "previous_sha256": "869b5105ddf8e0bdd078b8755f451d265b8091fd523cf6290ac7a913b92bc2fb",
+        "sha256": "4cbee86ed02d8f5dc263b909a94cfbbdef6fd65cb7f727950cbcebe96e91ded8"
+      },
+      {
+        "file": "runtime/src/kbot_pipeline/_graph/topology.py",
+        "previous_sha256": "6af52899c3105dfbe7d9a53f6b8b389fa55ff0081d7507077aab5fde510f6822",
+        "sha256": "ebde7a6525fd32407bccacb44840d7ee13ca8ed4d4c1406d38bc921501b3037a"
+      },
+      {
+        "file": "runtime/src/kbot_pipeline/circuit.schema.json",
+        "previous_sha256": "4cb715122572ed8c499b04ba2da65546a98d0239abb69d3a8665378919fab10c",
+        "sha256": "bcd01e279335cf83ed9d4785a7332139cb7f649f58c2b075231f0a9c0ec9cea6"
+      },
+      {
+        "file": "runtime/src/kbot_pipeline/circuitvision_native.py",
+        "previous_sha256": "143d382167398c7d0ed44cf6f81aef10e6d61b4061956ad22f25dbd85f1245a3",
+        "sha256": "46267b23e3f93b9370b1e6241738334cecc4d2af3e3243cc75bfaef814db2779"
+      },
+      {
+        "file": "runtime/src/kbot_pipeline/graph.py",
+        "previous_sha256": "f087b6d5329e959d33afabfc532ff3455979067acc43e695e2330ef09a22ef94",
+        "sha256": "610d9b689b0f016b9592004b55b81c0e941716f854003e16e22f36e32a05879e"
+      },
+      {
+        "file": "runtime/src/kbot_pipeline/spice.py",
+        "previous_sha256": "1f232c64f9a0b01c846ec7ee563d4669b3246e9e0df26a844a03e2cde55bd365",
+        "sha256": "ef5ed004438b87d0415ee38edb868318b7398a67a5e5ca850948d95b6efabb8a"
+      }
+    ]
+  }
 }

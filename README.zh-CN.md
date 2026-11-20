@@ -22,7 +22,7 @@
 
 ---
 
-<h1 align="center">K-Bot</h1>
+<h1 align="center">Ckt-Bot</h1>
 
 <details name="readme-language">
 <summary><strong>English</strong></summary>
@@ -52,15 +52,15 @@
 ---
 
 <p align="center">Upload a circuit. Ask a question. See the working.</p>
-<p align="center"><a href="run.md">Setup guide</a> · <a href="#pipeline-en">Pipeline</a> · <a href="https://huggingface.co/Meghamsh111/KBOT-models">Models</a></p>
+<p align="center"><a href="run.md">Setup guide</a> · <a href="#pipeline-en">Pipeline</a> · <a href="https://huggingface.co/Meghamsh111/Ckt-Bot-models">Models</a></p>
 
-K-Bot reads circuit diagrams and produces worked answers. The web interface shows each stage, from finding components and tracing wires to calculating and explaining the result.
+Ckt-Bot reads circuit diagrams and produces worked answers. The web interface shows each stage, from finding components and tracing wires to calculating and explaining the result.
 
 <a name="pipeline-en"></a>
 
 ## Architecture
 
-![Current K-Bot architecture](docs/visuals/architecture.png)
+![Current Ckt-Bot architecture](docs/visuals/architecture.png)
 
 ## How it works
 
@@ -88,11 +88,11 @@ The **vision-language model** reads values and labels. The question model select
 
 The panels are rendered from [HTML and CSS](docs/visuals/index.html), using the saved run data. Their source and rendering script are included in the same folder.
 
-## Run K-Bot
+## Run Ckt-Bot
 
 Follow **[run.md](run.md)** to install the software, download the models, sign in and start the web interface. Each teammate needs their own hosted-model login and access.
 
-The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/KBOT-models). See [run.md](run.md#what-is-included) for files kept outside GitHub. Docker remains experimental and unverified.
+The models are stored on [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models). See [run.md](run.md#what-is-included) for files kept outside GitHub. Docker remains experimental and unverified.
 
 ## Current status
 
@@ -130,15 +130,15 @@ Faint wires, crossings and misread labels can still produce the wrong circuit. O
 ---
 
 <p align="center">上載電路圖，問條問題，睇清楚計算過程。</p>
-<p align="center"><a href="run.md">安裝指南</a> · <a href="#pipeline-yue">處理流程</a> · <a href="https://huggingface.co/Meghamsh111/KBOT-models">模型</a></p>
+<p align="center"><a href="run.md">安裝指南</a> · <a href="#pipeline-yue">處理流程</a> · <a href="https://huggingface.co/Meghamsh111/Ckt-Bot-models">模型</a></p>
 
-K-Bot 讀取電路圖，並提供有計算步驟嘅答案。網頁介面會逐個階段展示，由搵出元件、追蹤導線，到計算同解釋結果。
+Ckt-Bot 讀取電路圖，並提供有計算步驟嘅答案。網頁介面會逐個階段展示，由搵出元件、追蹤導線，到計算同解釋結果。
 
 <a name="pipeline-yue"></a>
 
 ## 架構
 
-![K-Bot 目前嘅架構](docs/visuals/architecture.png)
+![Ckt-Bot 目前嘅架構](docs/visuals/architecture.png)
 
 ## 運作流程
 
@@ -166,11 +166,11 @@ K-Bot 讀取電路圖，並提供有計算步驟嘅答案。網頁介面會逐�
 
 以上圖板用儲低嘅執行數據，透過 [HTML 同 CSS](docs/visuals/index.html) 渲染而成。原始碼同渲染腳本都放喺同一個資料夾。
 
-## 執行 K-Bot
+## 執行 Ckt-Bot
 
 跟住 **[run.md](run.md)** 安裝軟件、下載模型、登入同啟動網頁介面。每位團隊成員都需要用自己嘅雲端模型帳戶登入，並有相應存取權限。
 
-模型存放喺 [Hugging Face](https://huggingface.co/Meghamsh111/KBOT-models)。邊啲檔案冇放入 GitHub，可以睇 [run.md](run.md#what-is-included)。Docker 仍然係實驗性方案，未經驗證。
+模型存放喺 [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models)。邊啲檔案冇放入 GitHub，可以睇 [run.md](run.md#what-is-included)。Docker 仍然係實驗性方案，未經驗證。
 
 ## 目前狀態
 
@@ -184,15 +184,15 @@ K-Bot 讀取電路圖，並提供有計算步驟嘅答案。網頁介面會逐�
 <summary><strong>普通话（简体）</strong></summary>
 
 <p align="center">上传电路图，输入问题，查看解题过程。</p>
-<p align="center"><a href="run.md">安装指南</a> · <a href="#pipeline-zh">处理流程</a> · <a href="https://huggingface.co/Meghamsh111/KBOT-models">模型</a></p>
+<p align="center"><a href="run.md">安装指南</a> · <a href="#pipeline-zh">处理流程</a> · <a href="https://huggingface.co/Meghamsh111/Ckt-Bot-models">模型</a></p>
 
-K-Bot 读取电路图并给出带有解题步骤的答案。网页会展示各个处理阶段，包括识别元件、追踪导线、分析连接、计算及解释结果。
+Ckt-Bot 读取电路图并给出带有解题步骤的答案。网页会展示各个处理阶段，包括识别元件、追踪导线、分析连接、计算及解释结果。
 
 <a name="pipeline-zh"></a>
 
 ## 架构
 
-![K-Bot 当前架构](docs/visuals/architecture.png)
+![Ckt-Bot 当前架构](docs/visuals/architecture.png)
 
 ## 工作流程
 
@@ -220,11 +220,11 @@ K-Bot 读取电路图并给出带有解题步骤的答案。网页会展示各�
 
 这些图片使用保存的运行数据，通过 [HTML 和 CSS](docs/visuals/index.html) 渲染生成。源代码及渲染脚本位于同一文件夹。
 
-## 运行 K-Bot
+## 运行 Ckt-Bot
 
 按照 **[run.md](run.md)** 安装软件、下载模型、登录并启动网页。每位团队成员都需要自己的托管模型登录账号及访问权限。
 
-模型存放在 [Hugging Face](https://huggingface.co/Meghamsh111/KBOT-models)。未包含在 GitHub 仓库中的文件见 [run.md](run.md#what-is-included)。Docker 仍处于实验阶段，尚未验证。
+模型存放在 [Hugging Face](https://huggingface.co/Meghamsh111/Ckt-Bot-models)。未包含在 GitHub 仓库中的文件见 [run.md](run.md#what-is-included)。Docker 仍处于实验阶段，尚未验证。
 
 ## 当前状态
 

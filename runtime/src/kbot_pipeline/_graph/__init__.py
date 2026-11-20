@@ -1,1 +1,1 @@
-"""Preserved K-Bot pixel/graph primitives; internal to the lean assembler."""
+"""Preserved Ckt-Bot pixel/graph primitives; internal to the lean assembler."""

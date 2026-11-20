@@ -1,7 +1,7 @@
 """Pin-aware assembly: measured paths, explicit crossing evidence, scoped aliases.
 
 No nearest-neighbour gap completion, invented terminals, VLM netlist replacement,
-or electrical-plausibility repairs. The preserved K-Bot extractor supplies pixels;
+or electrical-plausibility repairs. The preserved Ckt-Bot extractor supplies pixels;
 this module owns all ID binding and electrical equivalence operations.
 """
 from __future__ import annotations

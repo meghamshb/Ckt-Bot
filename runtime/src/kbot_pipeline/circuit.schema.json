@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "K-Bot evidence circuit",
+  "title": "Ckt-Bot evidence circuit",
   "type": "object",
   "required": [
     "schema_version",

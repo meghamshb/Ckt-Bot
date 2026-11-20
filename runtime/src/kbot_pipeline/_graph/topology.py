@@ -1,6 +1,6 @@
 """Evidence-preserving conductor segmentation and pin/net assembly.
 
-Reuses the K-Bot topology-next pixel observer (2026-11-12 review-source-v1).
+Reuses the Ckt-Bot topology-next pixel observer (2026-11-12 review-source-v1).
 This is a deterministic baseline, not a trained conductor segmentation model.
 Boxes define exclusion hypotheses; only observed lead contacts establish anchors.
 """
